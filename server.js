@@ -25,10 +25,21 @@ app.use(express.static(path.join(__dirname, "public")));
 function normalizeFeedUrl(url) {
   try {
     const parsed = new URL(String(url || "").trim());
-    if (!["http:", "https:"].includes(parsed.protocol) || !parsed.hostname) return null;
+    if (!["http:", "https:"].includes(parsed.protocol) || !parsed.hostname)
+      return null;
     if (parsed.username || parsed.password) return null;
     const host = parsed.hostname.toLowerCase();
-    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host === "::1" || /^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host) || /^172\.(1[6-9]|2\d|3[01])\./.test(host)) return null;
+    if (
+      host === "localhost" ||
+      host.endsWith(".localhost") ||
+      host.endsWith(".local") ||
+      host === "::1" ||
+      /^127\./.test(host) ||
+      /^10\./.test(host) ||
+      /^192\.168\./.test(host) ||
+      /^172\.(1[6-9]|2\d|3[01])\./.test(host)
+    )
+      return null;
     return parsed.toString();
   } catch {
     return null;
@@ -37,13 +48,26 @@ function normalizeFeedUrl(url) {
 
 function extractThumbnail(item) {
   if (!item) return "";
-  if (item.enclosure && typeof item.enclosure === "object" && item.enclosure.url) return item.enclosure.url;
-  if (item.enclosure && typeof item.enclosure === "string") return item.enclosure;
-  if (item.thumbnail && typeof item.thumbnail === "string") return item.thumbnail;
+  if (
+    item.enclosure &&
+    typeof item.enclosure === "object" &&
+    item.enclosure.url
+  )
+    return item.enclosure.url;
+  if (item.enclosure && typeof item.enclosure === "string")
+    return item.enclosure;
+  if (item.thumbnail && typeof item.thumbnail === "string")
+    return item.thumbnail;
   if (item.thumbnail && item.thumbnail.url) return item.thumbnail.url;
   if (item.image && typeof item.image === "string") return item.image;
-  if (item.media && item.media.thumbnail && item.media.thumbnail.url) return item.media.thumbnail.url;
-  if (item["media:thumbnail"] && typeof item["media:thumbnail"] === "object" && item["media:thumbnail"].url) return item["media:thumbnail"].url;
+  if (item.media && item.media.thumbnail && item.media.thumbnail.url)
+    return item.media.thumbnail.url;
+  if (
+    item["media:thumbnail"] &&
+    typeof item["media:thumbnail"] === "object" &&
+    item["media:thumbnail"].url
+  )
+    return item["media:thumbnail"].url;
   return "";
 }
 
@@ -58,25 +82,73 @@ function dedupeItems(items) {
   return Array.from(map.values());
 }
 
+function extractArticleHtml(html) {
+  const withoutNoise = html
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(
+      /<(script|style|noscript|svg|nav|header|footer|aside|form|iframe)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,
+      "",
+    )
+    .replace(
+      /<(script|style|noscript|svg|nav|header|footer|aside|form|iframe)\b[^>]*\/?>/gi,
+      "",
+    );
+  const candidates = [
+    ...withoutNoise.matchAll(/<(article|main)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi),
+  ].map((match) => match[2]);
+  const textLength = (value) =>
+    value
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;|&#160;/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim().length;
+  const content =
+    candidates.sort((a, b) => textLength(b) - textLength(a))[0] ||
+    withoutNoise.match(/<body\b[^>]*>([\s\S]*?)<\/body\s*>/i)?.[1] ||
+    withoutNoise;
+  return content
+    .replace(/\s(on\w+|style|srcdoc)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .slice(0, 1_500_000);
+}
+
 async function refreshFeed(feed) {
   try {
     const parsed = await parser.parseURL(feed.url);
-    if (!Array.isArray(parsed.items)) throw new Error("该地址没有可识别的 RSS / Atom 文章");
+    if (!Array.isArray(parsed.items))
+      throw new Error("该地址没有可识别的 RSS / Atom 文章");
     const newItems = parsed.items.map((item) => ({
-      guid: String(item.guid || item.link || `${item.title || "untitled"}:${item.isoDate || item.pubDate || ""}`),
+      guid: String(
+        item.guid ||
+          item.link ||
+          `${item.title || "untitled"}:${item.isoDate || item.pubDate || ""}`,
+      ),
       title: item.title || "(无标题)",
       link: item.link || "",
       pubDate: item.pubDate || item.isoDate || "",
-      content: item["content:encoded"] || item.content || item.description || item.summary || item.contentSnippet || "",
-      contentSnippet: item.contentSnippet || item.summary || item.description || "",
+      content:
+        item["content:encoded"] ||
+        item.content ||
+        item.description ||
+        item.summary ||
+        item.contentSnippet ||
+        "",
+      contentSnippet:
+        item.contentSnippet || item.summary || item.description || "",
       thumbnail: extractThumbnail(item),
       feedId: feed.id,
       feedTitle: parsed.title || feed.title,
       read: false,
-      isoDate: item.isoDate || item.pubDate || ""
+      isoDate: item.isoDate || item.pubDate || "",
     }));
-    const known = new Set(db.data.items.map((item) => `${item.feedId}:${item.guid || item.link || item.title}`));
-    const freshItems = newItems.filter((item) => !known.has(`${item.feedId}:${item.guid || item.link || item.title}`));
+    const known = new Set(
+      db.data.items.map(
+        (item) => `${item.feedId}:${item.guid || item.link || item.title}`,
+      ),
+    );
+    const freshItems = newItems.filter(
+      (item) =>
+        !known.has(`${item.feedId}:${item.guid || item.link || item.title}`),
+    );
     db.data.items = dedupeItems([...db.data.items, ...freshItems]);
     if (parsed.title && feed.title === feed.url) feed.title = parsed.title;
     return { success: true, count: freshItems.length };
@@ -102,7 +174,12 @@ app.post("/api/feeds", async (req, res) => {
   }
 
   const id = Date.now().toString();
-  const feed = { id, url: normalized, title: title || normalized, createdAt: new Date().toISOString() };
+  const feed = {
+    id,
+    url: normalized,
+    title: title || normalized,
+    createdAt: new Date().toISOString(),
+  };
   db.data.feeds.push(feed);
   await db.write();
   res.status(201).json(feed);
@@ -127,8 +204,46 @@ app.get("/api/items", async (req, res) => {
   if (unread === "true") {
     items = items.filter((item) => !item.read);
   }
-  items.sort((a, b) => new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime());
+  items.sort(
+    (a, b) => new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime(),
+  );
   res.json(items);
+});
+
+app.post("/api/items/:guid/fulltext", async (req, res) => {
+  await db.read();
+  const item = db.data.items.find((entry) => entry.guid === req.params.guid);
+  if (!item) return res.status(404).json({ error: "文章不存在" });
+  if (item.fullContent)
+    return res.json({ content: item.fullContent, cached: true });
+  const target = normalizeFeedUrl(item.link);
+  if (!target)
+    return res.status(400).json({ error: "文章没有可读取的网页地址" });
+  try {
+    const response = await fetch(target, {
+      signal: AbortSignal.timeout(12000),
+      headers: {
+        "User-Agent": "RSSHub/1.0 (reader)",
+        Accept: "text/html,application/xhtml+xml",
+      },
+      redirect: "follow",
+    });
+    if (!response.ok) throw new Error(`原文网站返回 HTTP ${response.status}`);
+    const contentType = response.headers.get("content-type") || "";
+    if (
+      !contentType.includes("text/html") &&
+      !contentType.includes("application/xhtml+xml")
+    )
+      throw new Error("原文地址不是网页内容");
+    const html = await response.text();
+    item.fullContent = extractArticleHtml(html);
+    if (item.fullContent.replace(/<[^>]*>/g, " ").trim().length < 100)
+      throw new Error("没有从原文页提取到足够的正文内容");
+    await db.write();
+    res.json({ content: item.fullContent, cached: false });
+  } catch (error) {
+    res.status(502).json({ error: error.message || "读取原文失败" });
+  }
 });
 
 app.patch("/api/items/:guid", async (req, res) => {

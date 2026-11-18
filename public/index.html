@@ -1,61 +1,1796 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f5f1">
-  <title>RSSHub · 阅读器</title>
-  <style>
-    :root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#24251f;background:#f6f5f1;font-synthesis:none;text-rendering:optimizeLegibility}*{box-sizing:border-box}body{margin:0;min-width:320px;min-height:100vh}.shell{max-width:1480px;min-height:100vh;margin:auto;padding:24px;display:grid;grid-template-columns:248px minmax(300px,440px) minmax(360px,1fr);gap:16px}.sidebar,.list-pane,.reader{background:#fff;border:1px solid #e9e8e2;border-radius:18px;min-width:0}.sidebar{padding:22px 16px;display:flex;flex-direction:column;gap:28px}.brand{display:flex;align-items:center;gap:11px;padding:0 6px}.brand-mark{width:34px;height:34px;border-radius:11px;background:#d7f06b;color:#293016;display:grid;place-items:center;font-size:19px;font-weight:800}.brand h1{font-size:18px;letter-spacing:-.04em;margin:0}.brand p{font-size:11px;color:#85857d;margin:3px 0 0}.section-label{padding:0 8px;margin:0 0 9px;color:#999990;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.nav-list,.feed-list{list-style:none;margin:0;padding:0}.nav-button,.feed-button{width:100%;border:0;background:transparent;text-align:left;display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:10px;color:#55564f;cursor:pointer;font:inherit;min-width:0}.nav-button:hover,.feed-button:hover{background:#f6f6f2}.nav-button.active,.feed-button.active{background:#f0f3e5;color:#313a1c}.nav-icon{width:18px;text-align:center;color:#858779}.count{margin-left:auto;color:#96968e;font-size:12px;flex:none}.feed-area{min-height:0}.feed-list{display:grid;gap:3px;max-height:calc(100vh - 345px);overflow:auto}.feed-button{font-size:13px}.feed-dot{width:8px;height:8px;border-radius:50%;background:#b9c884;flex:none}.feed-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.feed-remove{border:0;background:transparent;color:#aaa;opacity:0;padding:3px 6px;border-radius:6px;cursor:pointer}.feed-button:hover .feed-remove,.feed-remove:focus{opacity:1}.feed-remove:hover{color:#9b3b2e;background:#fff}.add-box{padding:14px 10px 0;border-top:1px solid #eeeee9}.add-box label{display:block;font-size:12px;font-weight:600;margin:0 0 9px}.add-row{display:flex;gap:6px}.add-row input{min-width:0;width:100%;height:38px;padding:0 10px;border:1px solid #e4e4dd;border-radius:9px;font:inherit;font-size:12px;outline:none}.add-row input:focus,.search:focus{border-color:#aab97a;box-shadow:0 0 0 3px #eff3e3}.button{border:0;border-radius:9px;background:#262820;color:#fff;padding:0 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}.button:hover{background:#44463b}.button:disabled{opacity:.5;cursor:wait}.side-foot{margin-top:auto;color:#aaa99f;font-size:11px;padding:0 8px}.list-pane{display:flex;flex-direction:column;overflow:hidden}.list-head{padding:22px 20px 15px;border-bottom:1px solid #efefeb}.list-head-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.list-head h2{font-size:20px;letter-spacing:-.04em;margin:0}.list-sub{color:#999990;font-size:12px;margin-top:6px}.head-actions{display:flex;gap:6px}.icon-button{width:34px;height:34px;border:1px solid #e9e9e3;border-radius:9px;background:#fff;color:#686960;cursor:pointer}.icon-button:hover,.icon-button.active{background:#f1f3e9;color:#39411f}.search-wrap{padding:13px 20px 10px}.search{height:36px;width:100%;border:1px solid #edede8;border-radius:9px;background:#fafaf8;padding:0 11px;font:inherit;font-size:12px;outline:0}.items{overflow:auto;min-height:0}.article{padding:16px 20px;border-bottom:1px solid #f0f0ec;cursor:pointer;position:relative}.article:hover{background:#fbfbf8}.article.selected{background:#f6f7f1}.article.unread:before{content:"";position:absolute;left:8px;top:23px;width:5px;height:5px;background:#879e43;border-radius:50%}.article-source{display:flex;align-items:center;gap:7px;color:#83847b;font-size:11px;margin-bottom:8px;min-width:0}.article-source span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.source-glyph{width:17px;height:17px;display:grid;place-items:center;border-radius:5px;background:#f0f1e9;color:#67733e;font-size:10px;flex:none}.article time{margin-left:auto;white-space:nowrap;color:#aaa99f;font-size:10px}.article h3{font-size:14px;line-height:1.55;letter-spacing:-.015em;margin:0 0 6px;color:#282921}.article p{font-size:12px;line-height:1.6;color:#85857d;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}.list-empty{padding:48px 25px;text-align:center;color:#919188;font-size:13px;line-height:1.8}.reader{padding:clamp(24px,4vw,54px);overflow:auto}.reader-empty{height:100%;min-height:430px;display:grid;place-content:center;text-align:center;color:#9a9a91}.reader-empty .empty-icon{font-size:32px;color:#c4c6b3;margin-bottom:14px}.reader-empty strong{font-size:15px;color:#68695f;font-weight:600}.reader-empty span{font-size:12px;margin-top:7px}.reader-top{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#85867b;font-size:12px;margin-bottom:20px}.reader-top a{color:#737b56;text-decoration:none}.reader h2{font-size:clamp(23px,3vw,34px);line-height:1.32;letter-spacing:-.045em;margin:0 0 18px;overflow-wrap:anywhere}.reader-meta{display:flex;align-items:center;gap:9px;color:#95958c;font-size:12px;padding-bottom:21px;border-bottom:1px solid #eeeee9}.reader-actions{margin-left:auto;display:flex;gap:7px}.text-button{border:1px solid #e9e9e2;background:#fff;border-radius:8px;padding:7px 10px;font:inherit;font-size:11px;color:#55564d;cursor:pointer;text-decoration:none}.text-button:hover{background:#f7f7f3}.reader-body{font-size:15px;line-height:1.9;color:#4c4d45;overflow-wrap:anywhere;word-break:break-word}.reader-body p{margin:1em 0}.reader-body img,.reader-body video,.reader-body iframe{max-width:100%;height:auto;border-radius:10px}.reader-body iframe{aspect-ratio:16/9}.reader-body pre{max-width:100%;overflow:auto;background:#f6f6f2;padding:14px;border-radius:8px}.reader-body blockquote{margin:1em 0;padding:2px 0 2px 15px;border-left:2px solid #c6d09d;color:#73746a}.reader-body a{color:#697a3c}.reader-body h1,.reader-body h2,.reader-body h3{margin:1.35em 0 .5em;font-size:1.2em}.reader-body ul,.reader-body ol{padding-left:1.5em}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,12px);background:#292a24;color:#fff;padding:10px 15px;border-radius:9px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:3}.toast.show{opacity:1;transform:translate(-50%,0)}
-    @media(max-width:1050px){.shell{grid-template-columns:210px minmax(280px,390px) minmax(300px,1fr);padding:14px;gap:10px}.sidebar{padding:18px 12px}.reader{padding:28px}}
-    @media(max-width:760px){.shell{display:flex;flex-direction:column;padding:10px;gap:9px;min-height:100dvh}.sidebar{padding:12px;gap:12px}.brand{padding:0 3px}.brand p,.side-foot,.section-label,.feed-area,.add-box{display:none}.sidebar-tools{display:flex;gap:6px;overflow:auto}.nav-list{display:flex;gap:4px;white-space:nowrap}.nav-button{width:auto;padding:9px 11px;font-size:12px}.nav-icon{display:none}.list-pane{min-height:45vh;max-height:58vh}.list-head{padding:15px 14px 12px}.search-wrap{padding:10px 14px}.article{padding:13px 16px}.reader{min-height:300px;padding:24px 20px}.reader-empty{min-height:210px}.reader h2{font-size:25px}}
-    @media(max-width:430px){.list-head h2{font-size:18px}.list-sub{font-size:11px}.reader{padding:20px 16px}.reader-body{font-size:14px}}
-    .feed-controls{display:flex;gap:2px;flex:none}.feed-refresh{border:0;background:transparent;color:#929389;opacity:0;padding:4px 5px;border-radius:6px;cursor:pointer}.feed-button:hover .feed-refresh,.feed-refresh:focus{opacity:1}.feed-refresh:hover{background:#fff;color:#4e6030}.feed-refresh:disabled{opacity:.5;cursor:wait}.feed-refreshing #refreshButton{animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-  </style>
-</head>
-<body>
-  <div class="shell">
-    <aside class="sidebar">
-      <div class="brand"><div class="brand-mark">r</div><div><h1>RSSHub</h1><p>你的安静阅读空间</p></div></div>
-      <div class="sidebar-tools">
-        <nav aria-label="文章筛选"><ul class="nav-list">
-          <li><button class="nav-button active" data-view="all"><span class="nav-icon">◫</span>全部文章 <span id="allCount" class="count"></span></button></li>
-          <li><button class="nav-button" data-view="unread"><span class="nav-icon">●</span>未读 <span id="unreadCount" class="count"></span></button></li>
-        </ul></nav>
-      </div>
-      <section class="feed-area"><h2 class="section-label">订阅源</h2><ul id="feedList" class="feed-list"></ul></section>
-      <form id="addForm" class="add-box"><label for="feedUrl">添加 RSS / Atom 订阅</label><div class="add-row"><input id="feedUrl" type="url" inputmode="url" placeholder="https://example.com/feed.xml" required><button id="addButton" class="button">添加</button></div></form>
-      <div class="side-foot">本地保存 · 标准 RSS 与 Atom</div>
-    </aside>
-    <main class="list-pane">
-      <header class="list-head"><div class="list-head-top"><div><h2 id="listTitle">全部文章</h2><div id="listSub" class="list-sub">正在读取订阅…</div></div><div class="head-actions"><button id="refreshButton" class="icon-button" title="刷新全部订阅" aria-label="刷新全部订阅">↻</button></div></div></header>
-      <div class="search-wrap"><input id="search" class="search" type="search" placeholder="搜索文章标题或摘要…" aria-label="搜索文章"></div>
-      <div id="items" class="items" aria-live="polite"></div>
-    </main>
-    <article id="reader" class="reader"><div class="reader-empty"><div class="empty-icon">⌁</div><strong>选一篇文章，开始阅读</strong><span>订阅更新会安静地汇集在这里。</span></div></article>
-  </div>
-  <div id="toast" class="toast" role="status"></div>
-  <script>
-    const state={feeds:[],items:[],view:"all",feedId:"",selected:"",busy:false};
-    const $=(id)=>document.getElementById(id);
-    async function api(path,method="GET",body){const options={method,headers:{"Content-Type":"application/json"}};if(body!==undefined)options.body=JSON.stringify(body);const response=await fetch(path,options);let data;try{data=await response.json()}catch{data={}}if(!response.ok)throw new Error(data.error||"请求失败");return data}
-    function toast(message){const node=$("toast");node.textContent=message;node.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>node.classList.remove("show"),2600)}
-    function date(value){if(!value)return "时间未知";const parsed=new Date(value);return Number.isNaN(parsed.getTime())?"时间未知":new Intl.DateTimeFormat("zh-CN",{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}).format(parsed)}
-    function safeUrl(value){try{const url=new URL(value);return ["http:","https:"].includes(url.protocol)?url.href:""}catch{return ""}}
-    function cleanHtml(html){const doc=new DOMParser().parseFromString(String(html||""),"text/html");doc.querySelectorAll("script,style,form,object,embed,meta,link,base").forEach(node=>node.remove());doc.querySelectorAll("*").forEach(node=>{[...node.attributes].forEach(attr=>{const key=attr.name.toLowerCase();if(key.startsWith("on")||key==="srcdoc")node.removeAttribute(attr.name);if(["href","src","xlink:href"].includes(key)){const safe=safeUrl(attr.value);if(!safe||/^\s*javascript:/i.test(attr.value))node.removeAttribute(attr.name);else node.setAttribute(attr.name,safe)}});if(node.tagName==="IFRAME"){const src=safeUrl(node.getAttribute("src"));if(!src){node.remove();return}node.setAttribute("sandbox","allow-scripts allow-same-origin allow-presentation");node.setAttribute("loading","lazy")}});return doc.body.innerHTML}
-    function visibleItems(){const needle=$("search").value.trim().toLocaleLowerCase();return state.items.filter(item=>(!state.feedId||item.feedId===state.feedId)&&(state.view!=="unread"||!item.read)&&(!needle||`${item.title} ${item.contentSnippet||""} ${item.feedTitle||""}`.toLocaleLowerCase().includes(needle))).sort((a,b)=>new Date(b.isoDate||b.pubDate||0)-new Date(a.isoDate||a.pubDate||0))}
-    function renderFeeds(){const root=$("feedList");root.replaceChildren();const allUnread=state.items.filter(item=>!item.read);$("allCount").textContent=state.items.length||"";$("unreadCount").textContent=allUnread.length||"";for(const feed of state.feeds){const li=document.createElement("li"),button=document.createElement("button"),dot=document.createElement("span"),name=document.createElement("span"),count=document.createElement("span"),controls=document.createElement("span"),refreshButton=document.createElement("button"),remove=document.createElement("button");button.type="button";button.className=`feed-button ${state.feedId===feed.id?"active":""}`;dot.className="feed-dot";name.className="feed-name";name.textContent=feed.title||feed.url;count.className="count";const n=state.items.filter(item=>item.feedId===feed.id&&!item.read).length;count.textContent=n||"";controls.className="feed-controls";refreshButton.type="button";refreshButton.className="feed-refresh";refreshButton.textContent="↻";refreshButton.title="刷新此订阅";refreshButton.setAttribute("aria-label",`刷新 ${feed.title||feed.url}`);refreshButton.addEventListener("click",event=>{event.stopPropagation();refreshFeed(feed.id,refreshButton)});remove.type="button";remove.className="feed-remove";remove.textContent="×";remove.title="移除订阅";remove.setAttribute("aria-label",`移除 ${feed.title||feed.url}`);remove.addEventListener("click",event=>{event.stopPropagation();deleteFeed(feed.id)});controls.append(refreshButton,remove);button.append(dot,name,count,controls);button.addEventListener("click",()=>{state.feedId=state.feedId===feed.id?"":feed.id;render()});li.append(button);root.append(li)}$("feedList").hidden=!state.feeds.length}
-    function renderList(){const list=visibleItems(),root=$("items");const feed=state.feeds.find(item=>item.id===state.feedId);$("listTitle").textContent=feed?.title||(state.view==="unread"?"未读文章":"全部文章");$("listSub").textContent=`${list.length} 篇文章${state.view==="unread"?" · 只显示未读":""}`;root.replaceChildren();if(!list.length){const empty=document.createElement("div");empty.className="list-empty";empty.textContent=state.feeds.length?( $("search").value?"没有找到匹配的文章。":"这里暂时没有文章，试试刷新订阅。" ):"还没有订阅源。添加一个 RSS 或 Atom 地址，文章就会汇集到这里。";root.append(empty);return}for(const item of list){const button=document.createElement("article");button.className=`article ${item.read?"":"unread"} ${state.selected===item.guid?"selected":""}`;button.tabIndex=0;button.setAttribute("role","button");button.setAttribute("aria-label",item.title||"打开文章");const source=document.createElement("div");source.className="article-source";const glyph=document.createElement("span");glyph.className="source-glyph";glyph.textContent=(item.feedTitle||"R").trim().slice(0,1);const sourceName=document.createElement("span");sourceName.textContent=item.feedTitle||"订阅源";const time=document.createElement("time");time.textContent=date(item.pubDate||item.isoDate);source.append(glyph,sourceName,time);const title=document.createElement("h3");title.textContent=item.title||"（无标题）";const summary=document.createElement("p");summary.textContent=(item.contentSnippet||item.content||"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim()||"暂无摘要";button.append(source,title,summary);const open=()=>selectItem(item.guid);button.addEventListener("click",open);button.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();open()}});root.append(button)}}
-    function renderReader(){const root=$("reader"),item=state.items.find(entry=>entry.guid===state.selected);root.replaceChildren();if(!item){const empty=document.createElement("div");empty.className="reader-empty";empty.innerHTML='<div class="empty-icon">⌁</div><strong>选一篇文章，开始阅读</strong><span>订阅更新会安静地汇集在这里。</span>';root.append(empty);return}const top=document.createElement("div");top.className="reader-top";const source=document.createElement("span");source.textContent=item.feedTitle||"订阅源";const linkUrl=safeUrl(item.link);if(linkUrl){const link=document.createElement("a");link.href=linkUrl;link.target="_blank";link.rel="noopener noreferrer";link.textContent="在原文打开 ↗";top.append(source,link)}else top.append(source);const title=document.createElement("h2");title.textContent=item.title||"（无标题）";const meta=document.createElement("div");meta.className="reader-meta";const time=document.createElement("time");time.textContent=date(item.pubDate||item.isoDate);const actions=document.createElement("div");actions.className="reader-actions";const mark=document.createElement("button");mark.className="text-button";mark.textContent=item.read?"标为未读":"标为已读";mark.addEventListener("click",()=>toggleRead(item));actions.append(mark);meta.append(time,actions);const body=document.createElement("div");body.className="reader-body";body.innerHTML=cleanHtml(item.content||item.contentSnippet||"暂无正文内容。");root.append(top,title,meta,body)}
-    function render(){document.querySelectorAll("[data-view]").forEach(button=>button.classList.toggle("active",button.dataset.view===state.view));renderFeeds();renderList();renderReader()}
-    async function load(){try{const [feeds,items]=await Promise.all([api("/api/feeds"),api("/api/items")]);state.feeds=feeds;state.items=items;if(state.selected&&!items.some(item=>item.guid===state.selected))state.selected="";render()}catch(error){toast(error.message)}}
-    function selectItem(guid){state.selected=guid;const item=state.items.find(entry=>entry.guid===guid);if(item&&!item.read)toggleRead(item,true);else render()}
-    async function toggleRead(item,read){try{await api(`/api/items/${encodeURIComponent(item.guid)}`,"PATCH",{read});item.read=read;render()}catch(error){toast(error.message)}}
-    async function deleteFeed(id){if(!confirm("移除此订阅及其已缓存文章？"))return;try{await api(`/api/feeds/${encodeURIComponent(id)}`,"DELETE");if(state.feedId===id)state.feedId="";state.selected="";await load();toast("订阅已移除")}catch(error){toast(error.message)}}
-    async function refreshFeed(id,button){if(state.busy)return;state.busy=true;if(button)button.disabled=true;try{const result=await api("/api/refresh","POST",{feedId:id});await load();toast(result.count?`订阅已更新，新增 ${result.count} 篇文章`:"已是最新，没有新文章")}catch(error){toast(`刷新失败：${error.message}`)}finally{state.busy=false;if(button)button.disabled=false}}
-    async function refresh(){if(state.busy)return;state.busy=true;$("refreshButton").disabled=true;$("refreshButton").textContent="…";try{const results=await api("/api/refresh-all","POST",{});await load();const failed=results.filter(item=>!item.success);const added=results.reduce((sum,item)=>sum+(item.count||0),0);toast(failed.length?`已新增 ${added} 篇，${failed.length} 个订阅刷新失败`:`刷新完成，新增 ${added} 篇文章`)}catch(error){toast(`刷新失败：${error.message}`)}finally{state.busy=false;$("refreshButton").disabled=false;$("refreshButton").textContent="↻"}}
-    $("addForm").addEventListener("submit",async event=>{event.preventDefault();const input=$("feedUrl"),button=$("addButton"),url=input.value.trim();if(!url)return;button.disabled=true;button.textContent="…";try{const feed=await api("/api/feeds","POST",{url});input.value="";await load();await api("/api/refresh","POST",{feedId:feed.id}).catch(error=>toast(`已添加订阅，首次拉取失败：${error.message}`));await load();if(!state.items.length)toast("订阅已添加")}catch(error){toast(error.message)}finally{button.disabled=false;button.textContent="添加"}});
-    $("refreshButton").addEventListener("click",refresh);$("search").addEventListener("input",renderList);document.querySelectorAll("[data-view]").forEach(button=>button.addEventListener("click",()=>{state.view=button.dataset.view;state.feedId="";render()}));load();
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f5f1" />
+    <title>RSSHub · 阅读器</title>
+    <style>
+      :root {
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          "PingFang SC",
+          "Microsoft YaHei",
+          sans-serif;
+        color: #24251f;
+        background: #f6f5f1;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+      }
+      .shell {
+        max-width: 1480px;
+        min-height: 100vh;
+        margin: auto;
+        padding: 24px;
+        display: grid;
+        grid-template-columns: 248px minmax(300px, 440px) minmax(360px, 1fr);
+        gap: 16px;
+      }
+      .sidebar,
+      .list-pane,
+      .reader {
+        background: #fff;
+        border: 1px solid #e9e8e2;
+        border-radius: 18px;
+        min-width: 0;
+      }
+      .sidebar {
+        padding: 22px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 0 6px;
+      }
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 11px;
+        background: #d7f06b;
+        color: #293016;
+        display: grid;
+        place-items: center;
+        font-size: 19px;
+        font-weight: 800;
+      }
+      .brand h1 {
+        font-size: 18px;
+        letter-spacing: -0.04em;
+        margin: 0;
+      }
+      .brand p {
+        font-size: 11px;
+        color: #85857d;
+        margin: 3px 0 0;
+      }
+      .section-label {
+        padding: 0 8px;
+        margin: 0 0 9px;
+        color: #999990;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .nav-list,
+      .feed-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-button,
+      .feed-button {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 11px;
+        border-radius: 10px;
+        color: #55564f;
+        cursor: pointer;
+        font: inherit;
+        min-width: 0;
+      }
+      .nav-button:hover,
+      .feed-button:hover {
+        background: #f6f6f2;
+      }
+      .nav-button.active,
+      .feed-button.active {
+        background: #f0f3e5;
+        color: #313a1c;
+      }
+      .nav-icon {
+        width: 18px;
+        text-align: center;
+        color: #858779;
+      }
+      .count {
+        margin-left: auto;
+        color: #96968e;
+        font-size: 12px;
+        flex: none;
+      }
+      .feed-area {
+        min-height: 0;
+      }
+      .feed-list {
+        display: grid;
+        gap: 3px;
+        max-height: calc(100vh - 345px);
+        overflow: auto;
+      }
+      .feed-button {
+        font-size: 13px;
+      }
+      .feed-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #b9c884;
+        flex: none;
+      }
+      .feed-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+      }
+      .feed-remove {
+        border: 0;
+        background: transparent;
+        color: #aaa;
+        opacity: 0;
+        padding: 3px 6px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .feed-button:hover .feed-remove,
+      .feed-remove:focus {
+        opacity: 1;
+      }
+      .feed-remove:hover {
+        color: #9b3b2e;
+        background: #fff;
+      }
+      .add-box {
+        padding: 14px 10px 0;
+        border-top: 1px solid #eeeee9;
+      }
+      .add-box label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 0 9px;
+      }
+      .add-row {
+        display: flex;
+        gap: 6px;
+      }
+      .add-row input {
+        min-width: 0;
+        width: 100%;
+        height: 38px;
+        padding: 0 10px;
+        border: 1px solid #e4e4dd;
+        border-radius: 9px;
+        font: inherit;
+        font-size: 12px;
+        outline: none;
+      }
+      .add-row input:focus,
+      .search:focus {
+        border-color: #aab97a;
+        box-shadow: 0 0 0 3px #eff3e3;
+      }
+      .button {
+        border: 0;
+        border-radius: 9px;
+        background: #262820;
+        color: #fff;
+        padding: 0 12px;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .button:hover {
+        background: #44463b;
+      }
+      .button:disabled {
+        opacity: 0.5;
+        cursor: wait;
+      }
+      .side-foot {
+        margin-top: auto;
+        color: #aaa99f;
+        font-size: 11px;
+        padding: 0 8px;
+      }
+      .list-pane {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .list-head {
+        padding: 22px 20px 15px;
+        border-bottom: 1px solid #efefeb;
+      }
+      .list-head-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .list-head h2 {
+        font-size: 20px;
+        letter-spacing: -0.04em;
+        margin: 0;
+      }
+      .list-sub {
+        color: #999990;
+        font-size: 12px;
+        margin-top: 6px;
+      }
+      .head-actions {
+        display: flex;
+        gap: 6px;
+      }
+      .icon-button {
+        width: 34px;
+        height: 34px;
+        border: 1px solid #e9e9e3;
+        border-radius: 9px;
+        background: #fff;
+        color: #686960;
+        cursor: pointer;
+      }
+      .icon-button:hover,
+      .icon-button.active {
+        background: #f1f3e9;
+        color: #39411f;
+      }
+      .search-wrap {
+        padding: 13px 20px 10px;
+      }
+      .search {
+        height: 36px;
+        width: 100%;
+        border: 1px solid #edede8;
+        border-radius: 9px;
+        background: #fafaf8;
+        padding: 0 11px;
+        font: inherit;
+        font-size: 12px;
+        outline: 0;
+      }
+      .items {
+        overflow: auto;
+        min-height: 0;
+      }
+      .article {
+        padding: 16px 20px;
+        border-bottom: 1px solid #f0f0ec;
+        cursor: pointer;
+        position: relative;
+      }
+      .article:hover {
+        background: #fbfbf8;
+      }
+      .article.selected {
+        background: #f6f7f1;
+      }
+      .article.unread:before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 23px;
+        width: 5px;
+        height: 5px;
+        background: #879e43;
+        border-radius: 50%;
+      }
+      .article-source {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #83847b;
+        font-size: 11px;
+        margin-bottom: 8px;
+        min-width: 0;
+      }
+      .article-source span:last-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .source-glyph {
+        width: 17px;
+        height: 17px;
+        display: grid;
+        place-items: center;
+        border-radius: 5px;
+        background: #f0f1e9;
+        color: #67733e;
+        font-size: 10px;
+        flex: none;
+      }
+      .article time {
+        margin-left: auto;
+        white-space: nowrap;
+        color: #aaa99f;
+        font-size: 10px;
+      }
+      .article h3 {
+        font-size: 14px;
+        line-height: 1.55;
+        letter-spacing: -0.015em;
+        margin: 0 0 6px;
+        color: #282921;
+      }
+      .article p {
+        font-size: 12px;
+        line-height: 1.6;
+        color: #85857d;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+      }
+      .list-empty {
+        padding: 48px 25px;
+        text-align: center;
+        color: #919188;
+        font-size: 13px;
+        line-height: 1.8;
+      }
+      .reader {
+        padding: clamp(24px, 4vw, 54px);
+        overflow: auto;
+      }
+      .reader-empty {
+        height: 100%;
+        min-height: 430px;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        color: #9a9a91;
+      }
+      .reader-empty .empty-icon {
+        font-size: 32px;
+        color: #c4c6b3;
+        margin-bottom: 14px;
+      }
+      .reader-empty strong {
+        font-size: 15px;
+        color: #68695f;
+        font-weight: 600;
+      }
+      .reader-empty span {
+        font-size: 12px;
+        margin-top: 7px;
+      }
+      .reader-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        color: #85867b;
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+      .reader-top a {
+        color: #737b56;
+        text-decoration: none;
+      }
+      .reader h2 {
+        font-size: clamp(23px, 3vw, 34px);
+        line-height: 1.32;
+        letter-spacing: -0.045em;
+        margin: 0 0 18px;
+        overflow-wrap: anywhere;
+      }
+      .reader-meta {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #95958c;
+        font-size: 12px;
+        padding-bottom: 21px;
+        border-bottom: 1px solid #eeeee9;
+      }
+      .reader-actions {
+        margin-left: auto;
+        display: flex;
+        gap: 7px;
+      }
+      .text-button {
+        border: 1px solid #e9e9e2;
+        background: #fff;
+        border-radius: 8px;
+        padding: 7px 10px;
+        font: inherit;
+        font-size: 11px;
+        color: #55564d;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .text-button:hover {
+        background: #f7f7f3;
+      }
+      .reader-body {
+        font-size: 15px;
+        line-height: 1.9;
+        color: #4c4d45;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      .reader-body p {
+        margin: 1em 0;
+      }
+      .reader-body img,
+      .reader-body video,
+      .reader-body iframe {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+      .reader-body iframe {
+        aspect-ratio: 16/9;
+      }
+      .reader-body pre {
+        max-width: 100%;
+        overflow: auto;
+        background: #f6f6f2;
+        padding: 14px;
+        border-radius: 8px;
+      }
+      .reader-body blockquote {
+        margin: 1em 0;
+        padding: 2px 0 2px 15px;
+        border-left: 2px solid #c6d09d;
+        color: #73746a;
+      }
+      .reader-body a {
+        color: #697a3c;
+      }
+      .reader-body h1,
+      .reader-body h2,
+      .reader-body h3 {
+        margin: 1.35em 0 0.5em;
+        font-size: 1.2em;
+      }
+      .reader-body ul,
+      .reader-body ol {
+        padding-left: 1.5em;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translate(-50%, 12px);
+        background: #292a24;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 9px;
+        font-size: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.2s;
+        z-index: 3;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      @media (max-width: 1050px) {
+        .shell {
+          grid-template-columns: 210px minmax(280px, 390px) minmax(300px, 1fr);
+          padding: 14px;
+          gap: 10px;
+        }
+        .sidebar {
+          padding: 18px 12px;
+        }
+        .reader {
+          padding: 28px;
+        }
+      }
+      @media (max-width: 760px) {
+        .shell {
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+          gap: 9px;
+          min-height: 100dvh;
+        }
+        .sidebar {
+          padding: 12px;
+          gap: 12px;
+        }
+        .brand {
+          padding: 0 3px;
+        }
+        .brand p,
+        .side-foot,
+        .section-label,
+        .feed-area,
+        .add-box {
+          display: none;
+        }
+        .sidebar-tools {
+          display: flex;
+          gap: 6px;
+          overflow: auto;
+        }
+        .nav-list {
+          display: flex;
+          gap: 4px;
+          white-space: nowrap;
+        }
+        .nav-button {
+          width: auto;
+          padding: 9px 11px;
+          font-size: 12px;
+        }
+        .nav-icon {
+          display: none;
+        }
+        .list-pane {
+          min-height: 45vh;
+          max-height: 58vh;
+        }
+        .list-head {
+          padding: 15px 14px 12px;
+        }
+        .search-wrap {
+          padding: 10px 14px;
+        }
+        .article {
+          padding: 13px 16px;
+        }
+        .reader {
+          min-height: 300px;
+          padding: 24px 20px;
+        }
+        .reader-empty {
+          min-height: 210px;
+        }
+        .reader h2 {
+          font-size: 25px;
+        }
+      }
+      @media (max-width: 430px) {
+        .list-head h2 {
+          font-size: 18px;
+        }
+        .list-sub {
+          font-size: 11px;
+        }
+        .reader {
+          padding: 20px 16px;
+        }
+        .reader-body {
+          font-size: 14px;
+        }
+      }
+      .feed-controls {
+        display: flex;
+        gap: 2px;
+        flex: none;
+      }
+      .feed-refresh {
+        border: 0;
+        background: transparent;
+        color: #929389;
+        opacity: 0;
+        padding: 4px 5px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .feed-button:hover .feed-refresh,
+      .feed-refresh:focus {
+        opacity: 1;
+      }
+      .feed-refresh:hover {
+        background: #fff;
+        color: #4e6030;
+      }
+      .feed-refresh:disabled {
+        opacity: 0.5;
+        cursor: wait;
+      }
+      .feed-refreshing #refreshButton {
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .mark-all {
+        height: 34px;
+        border: 1px solid #e9e9e3;
+        border-radius: 9px;
+        background: #fff;
+        color: #686960;
+        padding: 0 10px;
+        font: inherit;
+        font-size: 11px;
+        cursor: pointer;
+      }
+      .mark-all:hover {
+        background: #f1f3e9;
+        color: #39411f;
+      }
+      .feed-button {
+        display: grid;
+        grid-template-columns: 8px minmax(0, 1fr) auto;
+        position: relative;
+        padding-right: 74px;
+      }
+      .feed-controls {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: inherit;
+        border-radius: 6px;
+      }
+      .feed-button:hover .feed-refresh,
+      .feed-button:hover .feed-remove {
+        opacity: 1;
+      }
+      .backup-actions {
+        display: flex;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      .backup-actions .text-button {
+        font-size: 10px;
+        padding: 6px 8px;
+      }
+      body.focus-mode {
+        overflow: hidden;
+      }
+      .focus-mode .shell {
+        display: block;
+        max-width: none;
+        min-height: 100vh;
+        padding: 0;
+      }
+      .focus-mode .sidebar,
+      .focus-mode .list-pane {
+        display: none;
+      }
+      .focus-mode .reader {
+        height: 100vh;
+        min-height: 100vh;
+        overflow: auto;
+        border: 0;
+        border-radius: 0;
+        padding: clamp(28px, 7vh, 76px) 24px;
+      }
+      .focus-mode .reader > * {
+        max-width: 780px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .focus-mode .reader-empty {
+        height: 80vh;
+      }
+      .focus-mode .reader-top {
+        margin-bottom: 26px;
+      }
+      .focus-mode .reader h2 {
+        font-size: clamp(30px, 5vw, 48px);
+      }
+      .focus-mode .reader-meta {
+        margin-bottom: 34px;
+      }
+      .focus-mode .reader-body {
+        font-family: Georgia, "Songti SC", serif;
+        font-size: 18px;
+        line-height: 2.05;
+        color: #383a34;
+      }
+      .focus-mode .reader-body p {
+        margin: 1.3em 0;
+      }
+      .focus-mode .reader-body img {
+        display: block;
+        margin: 1.5em auto;
+        max-height: 75vh;
+        object-fit: contain;
+      }
+      .focus-toggle {
+        border: 1px solid #e9e9e2;
+        background: #fff;
+        border-radius: 8px;
+        padding: 7px 10px;
+        font: inherit;
+        font-size: 11px;
+        color: #55564d;
+        cursor: pointer;
+      }
+      .focus-toggle:hover {
+        background: #f7f7f3;
+      }
+      @media (max-width: 760px) {
+        .focus-mode .reader {
+          padding: 24px 20px;
+        }
+        .focus-mode .reader h2 {
+          font-size: 29px;
+        }
+        .focus-mode .reader-body {
+          font-size: 16px;
+        }
+      }
+      .items,
+      .reader {
+        transition:
+          opacity 0.18s ease,
+          transform 0.18s ease;
+      }
+      .items.is-loading,
+      .reader.is-loading {
+        opacity: 0.48;
+        transform: translateY(3px);
+        pointer-events: none;
+      }
+      .article {
+        animation: rise-in 0.28s both;
+        animation-delay: calc(min(var(--i, 0), 10) * 18ms);
+      }
+      .reader-body {
+        animation: reader-in 0.28s ease both;
+      }
+      .skeleton {
+        padding: 16px 20px;
+        border-bottom: 1px solid #f0f0ec;
+      }
+      .skeleton-line {
+        height: 9px;
+        border-radius: 6px;
+        margin: 0 0 10px;
+        background: linear-gradient(
+          90deg,
+          #f0f0eb 20%,
+          #fafaf8 38%,
+          #f0f0eb 62%
+        );
+        background-size: 400% 100%;
+        animation: shimmer 1.25s ease infinite;
+      }
+      .skeleton-line.short {
+        width: 38%;
+      }
+      .skeleton-line.title {
+        height: 13px;
+        width: 76%;
+      }
+      .skeleton-line.summary {
+        width: 94%;
+      }
+      .reader-skeleton {
+        padding-top: 5px;
+      }
+      .reader-skeleton .skeleton-line {
+        height: 12px;
+        margin: 0 0 18px;
+      }
+      .reader-skeleton .skeleton-line.title {
+        height: 27px;
+        width: 86%;
+        margin: 0 0 25px;
+      }
+      .reader-skeleton .skeleton-line.summary {
+        height: 10px;
+        width: 100%;
+        margin-bottom: 13px;
+      }
+      .reader-skeleton .skeleton-line.short {
+        width: 54%;
+      }
+      .list-empty,
+      .reader-empty {
+        animation: rise-in 0.25s ease both;
+      }
+      @keyframes shimmer {
+        to {
+          background-position: -200% 0;
+        }
+      }
+      @keyframes rise-in {
+        from {
+          opacity: 0;
+          transform: translateY(7px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes reader-in {
+        from {
+          opacity: 0;
+          transform: translateY(9px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+      @media (max-width: 760px) {
+        .sidebar .add-box {
+          display: block;
+          border: 0;
+          padding: 0;
+        }
+        .sidebar .add-box label,
+        .sidebar .backup-actions {
+          display: none;
+        }
+        .sidebar .feed-area {
+          display: block;
+          max-height: 130px;
+          overflow: auto;
+        }
+        .sidebar .section-label {
+          display: none;
+        }
+        .sidebar {
+          gap: 8px;
+        }
+        .feed-list {
+          display: flex;
+          gap: 5px;
+          max-height: none;
+          overflow-x: auto;
+        }
+        .feed-list li {
+          flex: none;
+        }
+        .feed-button {
+          width: auto;
+          max-width: 160px;
+          padding: 8px 10px;
+          font-size: 11px;
+        }
+        .feed-controls {
+          display: none;
+        }
+      }
+      .curated-section {
+        border-top: 1px solid #eeeee9;
+        padding: 14px 7px 0;
+      }
+      .curated-section summary {
+        cursor: pointer;
+        list-style: none;
+        font-size: 12px;
+        font-weight: 650;
+        color: #47483f;
+      }
+      .curated-section summary::-webkit-details-marker {
+        display: none;
+      }
+      .curated-section summary span {
+        display: block;
+        color: #a09f96;
+        font-size: 10px;
+        font-weight: 400;
+        margin-top: 4px;
+      }
+      .curated-list {
+        display: grid;
+        gap: 6px;
+        margin-top: 11px;
+        max-height: 290px;
+        overflow: auto;
+      }
+      .curated-card {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 6px;
+        border-radius: 8px;
+      }
+      .curated-card:hover {
+        background: #f8f8f4;
+      }
+      .curated-copy {
+        min-width: 0;
+        flex: 1;
+      }
+      .curated-name {
+        font-size: 11px;
+        color: #484940;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .curated-category {
+        font-size: 9px;
+        color: #a09f96;
+        margin-top: 3px;
+      }
+      .curated-add {
+        flex: none;
+        border: 1px solid #e8e8e1;
+        background: #fff;
+        color: #60634e;
+        border-radius: 7px;
+        padding: 5px 7px;
+        font: inherit;
+        font-size: 10px;
+        cursor: pointer;
+      }
+      .curated-add:hover {
+        background: #f0f3e5;
+      }
+      .curated-add:disabled {
+        opacity: 0.65;
+        cursor: default;
+      }
+      @media (max-width: 760px) {
+        .curated-section {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">r</div>
+          <div>
+            <h1>RSSHub</h1>
+            <p>你的安静阅读空间</p>
+          </div>
+        </div>
+        <div class="sidebar-tools">
+          <nav aria-label="文章筛选">
+            <ul class="nav-list">
+              <li>
+                <button class="nav-button active" data-view="all">
+                  <span class="nav-icon">◫</span>全部文章
+                  <span id="allCount" class="count"></span>
+                </button>
+              </li>
+              <li>
+                <button class="nav-button" data-view="unread">
+                  <span class="nav-icon">●</span>未读
+                  <span id="unreadCount" class="count"></span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <details class="curated-section" open>
+          <summary>精选订阅源 <span>为你挑选的优质内容</span></summary>
+          <div id="curatedList" class="curated-list"></div>
+        </details>
+        <section class="feed-area">
+          <h2 class="section-label">订阅源</h2>
+          <ul id="feedList" class="feed-list"></ul>
+        </section>
+        <form id="addForm" class="add-box">
+          <label for="feedUrl">添加 RSS / Atom 订阅</label>
+          <div class="add-row">
+            <input
+              id="feedUrl"
+              type="url"
+              inputmode="url"
+              placeholder="https://example.com/feed.xml"
+              required
+            /><button id="addButton" class="button">添加</button>
+          </div>
+          <div class="backup-actions">
+            <button id="exportButton" type="button" class="text-button">
+              导出 OPML</button
+            ><button id="importButton" type="button" class="text-button">
+              导入 OPML</button
+            ><input
+              id="opmlFile"
+              type="file"
+              accept=".opml,.xml,text/xml,application/xml"
+              hidden
+            />
+          </div>
+        </form>
+        <div class="side-foot">本地保存 · 标准 RSS 与 Atom</div>
+      </aside>
+      <main class="list-pane">
+        <header class="list-head">
+          <div class="list-head-top">
+            <div>
+              <h2 id="listTitle">全部文章</h2>
+              <div id="listSub" class="list-sub">正在读取订阅…</div>
+            </div>
+            <div class="head-actions">
+              <button
+                id="markAllButton"
+                class="mark-all"
+                title="将当前筛选中的文章全部标为已读"
+              >
+                全部已读</button
+              ><button
+                id="refreshButton"
+                class="icon-button"
+                title="刷新全部订阅"
+                aria-label="刷新全部订阅"
+              >
+                ↻
+              </button>
+            </div>
+          </div>
+        </header>
+        <div class="search-wrap">
+          <input
+            id="search"
+            class="search"
+            type="search"
+            placeholder="搜索文章标题或摘要…"
+            aria-label="搜索文章"
+          />
+        </div>
+        <div id="items" class="items" aria-live="polite"></div>
+      </main>
+      <article id="reader" class="reader">
+        <div class="reader-empty">
+          <div class="empty-icon">⌁</div>
+          <strong>选一篇文章，开始阅读</strong
+          ><span>订阅更新会安静地汇集在这里。</span>
+        </div>
+      </article>
+    </div>
+    <div id="toast" class="toast" role="status"></div>
+    <script>
+      const curatedFeeds = [
+        {
+          title: "少数派",
+          url: "https://sspai.com/feed",
+          category: "中文 · 数码与效率",
+        },
+        {
+          title: "阮一峰的网络日志",
+          url: "https://www.ruanyifeng.com/blog/atom.xml",
+          category: "中文 · 科技与编程",
+        },
+        {
+          title: "爱范儿",
+          url: "https://www.ifanr.com/feed",
+          category: "中文 · 消费科技",
+        },
+        {
+          title: "Hacker News",
+          url: "https://news.ycombinator.com/rss",
+          category: "开发 · 科技社区",
+        },
+        {
+          title: "GitHub Blog",
+          url: "https://github.blog/feed/",
+          category: "开发 · 开源与工程",
+        },
+        {
+          title: "The Verge",
+          url: "https://www.theverge.com/rss/index.xml",
+          category: "国际 · 科技新闻",
+        },
+      ];
+      const state = {
+        feeds: [],
+        items: [],
+        view: "all",
+        feedId: "",
+        selected: "",
+        busy: false,
+      };
+      const $ = (id) => document.getElementById(id);
+      async function api(path, method = "GET", body) {
+        const options = {
+          method,
+          headers: { "Content-Type": "application/json" },
+        };
+        if (body !== undefined) options.body = JSON.stringify(body);
+        const response = await fetch(path, options);
+        let data;
+        try {
+          data = await response.json();
+        } catch {
+          data = {};
+        }
+        if (!response.ok) throw new Error(data.error || "请求失败");
+        return data;
+      }
+      function toast(message) {
+        const node = $("toast");
+        node.textContent = message;
+        node.classList.add("show");
+        clearTimeout(toast.timer);
+        toast.timer = setTimeout(() => node.classList.remove("show"), 2600);
+      }
+      function date(value) {
+        if (!value) return "时间未知";
+        const parsed = new Date(value);
+        return Number.isNaN(parsed.getTime())
+          ? "时间未知"
+          : new Intl.DateTimeFormat("zh-CN", {
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            }).format(parsed);
+      }
+      function safeUrl(value) {
+        try {
+          const url = new URL(value);
+          return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+        } catch {
+          return "";
+        }
+      }
+      function cleanHtml(html) {
+        const doc = new DOMParser().parseFromString(
+          String(html || ""),
+          "text/html",
+        );
+        doc
+          .querySelectorAll("script,style,form,object,embed,meta,link,base")
+          .forEach((node) => node.remove());
+        doc.querySelectorAll("*").forEach((node) => {
+          [...node.attributes].forEach((attr) => {
+            const key = attr.name.toLowerCase();
+            if (key.startsWith("on") || key === "srcdoc")
+              node.removeAttribute(attr.name);
+            if (key === "href" || key === "xlink:href")
+              node.removeAttribute(attr.name);
+            if (key === "src") {
+              const safe = safeUrl(attr.value);
+              if (!safe) node.removeAttribute(attr.name);
+              else node.setAttribute(attr.name, safe);
+            }
+          });
+          if (node.tagName === "A") {
+            node.removeAttribute("href");
+            node.setAttribute("role", "text");
+          }
+          if (node.tagName === "IFRAME") {
+            const src = safeUrl(node.getAttribute("src"));
+            if (!src) {
+              node.remove();
+              return;
+            }
+            node.setAttribute(
+              "sandbox",
+              "allow-scripts allow-same-origin allow-presentation",
+            );
+            node.setAttribute("loading", "lazy");
+          }
+        });
+        return doc.body.innerHTML;
+      }
+      function visibleItems() {
+        const needle = $("search").value.trim().toLocaleLowerCase();
+        return state.items
+          .filter(
+            (item) =>
+              (!state.feedId || item.feedId === state.feedId) &&
+              (state.view !== "unread" || !item.read) &&
+              (!needle ||
+                `${item.title} ${item.contentSnippet || ""} ${item.feedTitle || ""}`
+                  .toLocaleLowerCase()
+                  .includes(needle)),
+          )
+          .sort(
+            (a, b) =>
+              new Date(b.isoDate || b.pubDate || 0) -
+              new Date(a.isoDate || a.pubDate || 0),
+          );
+      }
+      function renderFeeds() {
+        const root = $("feedList");
+        root.replaceChildren();
+        const allUnread = state.items.filter((item) => !item.read);
+        $("allCount").textContent = state.items.length || "";
+        $("unreadCount").textContent = allUnread.length || "";
+        for (const feed of state.feeds) {
+          const li = document.createElement("li"),
+            button = document.createElement("button"),
+            dot = document.createElement("span"),
+            name = document.createElement("span"),
+            count = document.createElement("span"),
+            controls = document.createElement("span"),
+            refreshButton = document.createElement("button"),
+            remove = document.createElement("button");
+          button.type = "button";
+          button.className = `feed-button ${state.feedId === feed.id ? "active" : ""}`;
+          dot.className = "feed-dot";
+          name.className = "feed-name";
+          name.textContent = feed.title || feed.url;
+          count.className = "count";
+          const n = state.items.filter(
+            (item) => item.feedId === feed.id && !item.read,
+          ).length;
+          count.textContent = n || "";
+          controls.className = "feed-controls";
+          refreshButton.type = "button";
+          refreshButton.className = "feed-refresh";
+          refreshButton.textContent = "↻";
+          refreshButton.title = "刷新此订阅";
+          refreshButton.setAttribute(
+            "aria-label",
+            `刷新 ${feed.title || feed.url}`,
+          );
+          refreshButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            refreshFeed(feed.id, refreshButton);
+          });
+          remove.type = "button";
+          remove.className = "feed-remove";
+          remove.textContent = "×";
+          remove.title = "移除订阅";
+          remove.setAttribute("aria-label", `移除 ${feed.title || feed.url}`);
+          remove.addEventListener("click", (event) => {
+            event.stopPropagation();
+            deleteFeed(feed.id);
+          });
+          controls.append(refreshButton, remove);
+          button.append(dot, name, count, controls);
+          button.addEventListener("click", () => {
+            state.feedId = state.feedId === feed.id ? "" : feed.id;
+            render();
+          });
+          li.append(button);
+          root.append(li);
+        }
+        $("feedList").hidden = !state.feeds.length;
+      }
+      function renderCurated() {
+        const root = $("curatedList");
+        root.replaceChildren();
+        for (const feed of curatedFeeds) {
+          const subscribed = state.feeds.some(
+            (item) =>
+              item.url.replace(/\/$/, "") === feed.url.replace(/\/$/, ""),
+          );
+          const row = document.createElement("div");
+          row.className = "curated-card";
+          const copy = document.createElement("div");
+          copy.className = "curated-copy";
+          const name = document.createElement("div");
+          name.className = "curated-name";
+          name.textContent = feed.title;
+          const category = document.createElement("div");
+          category.className = "curated-category";
+          category.textContent = feed.category;
+          copy.append(name, category);
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "curated-add";
+          button.textContent = subscribed ? "已添加" : "＋ 添加";
+          button.disabled = subscribed;
+          button.addEventListener("click", () => addCurated(feed, button));
+          row.append(copy, button);
+          root.append(row);
+        }
+      }
+      function renderList() {
+        const list = visibleItems(),
+          root = $("items");
+        const feed = state.feeds.find((item) => item.id === state.feedId);
+        $("listTitle").textContent =
+          feed?.title || (state.view === "unread" ? "未读文章" : "全部文章");
+        $("listSub").textContent =
+          `${list.length} 篇文章${state.view === "unread" ? " · 只显示未读" : ""}`;
+        root.replaceChildren();
+        if (!list.length) {
+          const empty = document.createElement("div");
+          empty.className = "list-empty";
+          empty.textContent = state.feeds.length
+            ? $("search").value
+              ? "没有找到匹配的文章。"
+              : "这里暂时没有文章，试试刷新订阅。"
+            : "还没有订阅源。添加一个 RSS 或 Atom 地址，文章就会汇集到这里。";
+          root.append(empty);
+          return;
+        }
+        for (const item of list) {
+          const button = document.createElement("article");
+          button.className = `article ${item.read ? "" : "unread"} ${state.selected === item.guid ? "selected" : ""}`;
+          button.tabIndex = 0;
+          button.setAttribute("role", "button");
+          button.setAttribute("aria-label", item.title || "打开文章");
+          const source = document.createElement("div");
+          source.className = "article-source";
+          const glyph = document.createElement("span");
+          glyph.className = "source-glyph";
+          glyph.textContent = (item.feedTitle || "R").trim().slice(0, 1);
+          const sourceName = document.createElement("span");
+          sourceName.textContent = item.feedTitle || "订阅源";
+          const time = document.createElement("time");
+          time.textContent = date(item.pubDate || item.isoDate);
+          source.append(glyph, sourceName, time);
+          const title = document.createElement("h3");
+          title.textContent = item.title || "（无标题）";
+          const summary = document.createElement("p");
+          summary.textContent =
+            (item.contentSnippet || item.content || "")
+              .replace(/<[^>]*>/g, " ")
+              .replace(/\s+/g, " ")
+              .trim() || "暂无摘要";
+          button.append(source, title, summary);
+          const open = () => selectItem(item.guid);
+          button.addEventListener("click", open);
+          button.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              open();
+            }
+          });
+          root.append(button);
+        }
+      }
+      function renderReader() {
+        const root = $("reader"),
+          item = state.items.find((entry) => entry.guid === state.selected);
+        root.replaceChildren();
+        if (!item) {
+          const empty = document.createElement("div");
+          empty.className = "reader-empty";
+          empty.innerHTML =
+            '<div class="empty-icon">⌁</div><strong>选一篇文章，开始阅读</strong><span>订阅更新会安静地汇集在这里。</span>';
+          root.append(empty);
+          return;
+        }
+        const top = document.createElement("div");
+        top.className = "reader-top";
+        const source = document.createElement("span");
+        source.textContent = item.feedTitle || "订阅源";
+        top.append(source);
+        const title = document.createElement("h2");
+        title.textContent = item.title || "（无标题）";
+        const meta = document.createElement("div");
+        meta.className = "reader-meta";
+        const time = document.createElement("time");
+        time.textContent = date(item.pubDate || item.isoDate);
+        const actions = document.createElement("div");
+        actions.className = "reader-actions";
+        const focus = document.createElement("button");
+        focus.className = "focus-toggle";
+        focus.textContent = document.body.classList.contains("focus-mode")
+          ? "退出专注"
+          : "专注阅读 ⛶";
+        focus.setAttribute(
+          "aria-pressed",
+          String(document.body.classList.contains("focus-mode")),
+        );
+        focus.addEventListener("click", toggleFocus);
+        const mark = document.createElement("button");
+        mark.className = "text-button";
+        mark.textContent = item.read ? "标为未读" : "标为已读";
+        mark.addEventListener("click", () => toggleRead(item));
+        actions.append(focus, mark);
+        meta.append(time, actions);
+        const body = document.createElement("div");
+        body.className = "reader-body";
+        const content =
+          item.fullContent || item.content || item.contentSnippet || "";
+        const hasMoreLink =
+          /查看全文|阅读全文|继续阅读|阅读原文|read\s+more|continue\s+reading/i.test(
+            String(content).replace(/<[^>]*>/g, " "),
+          );
+        body.innerHTML = cleanHtml(content || "订阅源没有提供正文内容。");
+        if (!item.fullContent && hasMoreLink) {
+          const action = document.createElement("button");
+          action.className = "text-button";
+          action.textContent = item.fullTextLoading
+            ? "正在软件内加载全文…"
+            : item.fullTextError
+              ? "重试加载全文"
+              : "在软件内加载全文";
+          action.disabled = Boolean(item.fullTextLoading);
+          action.addEventListener("click", () => {
+            item.fullTextError = "";
+            fetchFullText(item);
+          });
+          body.append(action);
+          if (
+            !item.fullTextLoading &&
+            !item.fullTextError &&
+            !item.fullTextAttempted
+          )
+            fetchFullText(item);
+          else if (item.fullTextError) {
+            const note = document.createElement("p");
+            note.textContent = `暂时无法获取全文：${item.fullTextError}`;
+            body.append(note);
+          }
+        } else if (
+          !item.fullContent &&
+          (!item.content || item.content === item.contentSnippet)
+        ) {
+          const notice = document.createElement("p");
+          notice.textContent = item.fullTextError
+            ? `暂时无法获取全文：${item.fullTextError}`
+            : "订阅源只提供摘要。正在尝试在软件内读取原文全文…";
+          body.append(notice);
+          if (
+            !item.fullTextError &&
+            !item.fullTextLoading &&
+            !item.fullTextAttempted
+          )
+            fetchFullText(item);
+        }
+        root.append(top, title, meta, body);
+      }
+      function render() {
+        document
+          .querySelectorAll("[data-view]")
+          .forEach((button) =>
+            button.classList.toggle(
+              "active",
+              button.dataset.view === state.view,
+            ),
+          );
+        renderFeeds();
+        renderCurated();
+        renderList();
+        renderReader();
+      }
+      function toggleFocus() {
+        document.body.classList.toggle("focus-mode");
+        const active = document.body.classList.contains("focus-mode");
+        if (active) history.pushState({ focus: true }, "");
+        renderReader();
+      }
+      function showLoading() {
+        const list = $("items"),
+          reader = $("reader");
+        list.classList.add("is-loading");
+        reader.classList.add("is-loading");
+        if (!state.items.length) {
+          list.innerHTML = Array.from(
+            { length: 5 },
+            () =>
+              '<div class="skeleton"><div class="skeleton-line short"></div><div class="skeleton-line title"></div><div class="skeleton-line summary"></div></div>',
+          ).join("");
+          reader.innerHTML =
+            '<div class="reader-skeleton"><div class="skeleton-line short"></div><div class="skeleton-line title"></div><div class="skeleton-line summary"></div><div class="skeleton-line summary"></div><div class="skeleton-line summary"></div><div class="skeleton-line summary"></div><div class="skeleton-line summary"></div></div>';
+        }
+      }
+      function hideLoading() {
+        document
+          .querySelectorAll(".is-loading")
+          .forEach((node) => node.classList.remove("is-loading"));
+      }
+      async function load() {
+        showLoading();
+        try {
+          const [feeds, items] = await Promise.all([
+            api("/api/feeds"),
+            api("/api/items"),
+          ]);
+          state.feeds = feeds;
+          state.items = items;
+          if (
+            state.selected &&
+            !items.some((item) => item.guid === state.selected)
+          )
+            state.selected = "";
+          render();
+        } catch (error) {
+          toast(error.message);
+        } finally {
+          hideLoading();
+        }
+      }
+      function selectItem(guid) {
+        state.selected = guid;
+        const item = state.items.find((entry) => entry.guid === guid);
+        if (item && !item.read) toggleRead(item, true);
+        else render();
+      }
+      async function fetchFullText(item) {
+        item.fullTextLoading = true;
+        item.fullTextAttempted = true;
+        try {
+          const result = await api(
+            `/api/items/${encodeURIComponent(item.guid)}/fulltext`,
+            "POST",
+            {},
+          );
+          item.fullContent = result.content;
+          item.fullTextError = "";
+        } catch (error) {
+          item.fullTextError = error.message;
+        } finally {
+          item.fullTextLoading = false;
+          if (state.selected === item.guid) renderReader();
+        }
+      }
+      async function toggleRead(item, read) {
+        try {
+          await api(`/api/items/${encodeURIComponent(item.guid)}`, "PATCH", {
+            read,
+          });
+          item.read = read;
+          render();
+        } catch (error) {
+          toast(error.message);
+        }
+      }
+      async function deleteFeed(id) {
+        if (!confirm("移除此订阅及其已缓存文章？")) return;
+        try {
+          await api(`/api/feeds/${encodeURIComponent(id)}`, "DELETE");
+          if (state.feedId === id) state.feedId = "";
+          state.selected = "";
+          await load();
+          toast("订阅已移除");
+        } catch (error) {
+          toast(error.message);
+        }
+      }
+      async function refreshFeed(id, button) {
+        if (state.busy) return;
+        state.busy = true;
+        if (button) button.disabled = true;
+        $("items").classList.add("is-loading");
+        try {
+          const result = await api("/api/refresh", "POST", { feedId: id });
+          await load();
+          toast(
+            result.count
+              ? `订阅已更新，新增 ${result.count} 篇文章`
+              : "已是最新，没有新文章",
+          );
+        } catch (error) {
+          toast(`刷新失败：${error.message}`);
+        } finally {
+          state.busy = false;
+          if (button) button.disabled = false;
+          hideLoading();
+        }
+      }
+      async function addCurated(feed, button) {
+        button.disabled = true;
+        button.textContent = "添加中…";
+        try {
+          const added = await api("/api/feeds", "POST", {
+            url: feed.url,
+            title: feed.title,
+          });
+          await load();
+          try {
+            const result = await api("/api/refresh", "POST", {
+              feedId: added.id,
+            });
+            await load();
+            toast(
+              result.count
+                ? "已添加 " + feed.title + "，更新 " + result.count + " 篇文章"
+                : "已添加 " + feed.title,
+            );
+          } catch (error) {
+            toast(feed.title + " 已添加，暂时无法刷新：" + error.message);
+          }
+        } catch (error) {
+          toast(error.message);
+          button.disabled = false;
+          button.textContent = "＋ 添加";
+        }
+      }
+      async function refresh() {
+        if (state.busy) return;
+        state.busy = true;
+        $("refreshButton").disabled = true;
+        $("refreshButton").textContent = "…";
+        document.body.classList.add("feed-refreshing");
+        $("items").classList.add("is-loading");
+        try {
+          const results = await api("/api/refresh-all", "POST", {});
+          await load();
+          const failed = results.filter((item) => !item.success);
+          const added = results.reduce(
+            (sum, item) => sum + (item.count || 0),
+            0,
+          );
+          toast(
+            failed.length
+              ? `已新增 ${added} 篇，${failed.length} 个订阅刷新失败`
+              : `刷新完成，新增 ${added} 篇文章`,
+          );
+        } catch (error) {
+          toast(`刷新失败：${error.message}`);
+        } finally {
+          state.busy = false;
+          $("refreshButton").disabled = false;
+          $("refreshButton").textContent = "↻";
+          document.body.classList.remove("feed-refreshing");
+          hideLoading();
+        }
+      }
+      async function markVisibleRead() {
+        const unread = visibleItems().filter((item) => !item.read);
+        if (!unread.length) {
+          toast("当前没有未读文章");
+          return;
+        }
+        const button = $("markAllButton");
+        button.disabled = true;
+        try {
+          await Promise.all(
+            unread.map((item) =>
+              api(`/api/items/${encodeURIComponent(item.guid)}`, "PATCH", {
+                read: true,
+              }),
+            ),
+          );
+          unread.forEach((item) => (item.read = true));
+          render();
+          toast(`已将 ${unread.length} 篇文章标为已读`);
+        } catch (error) {
+          toast(`更新失败：${error.message}，请重试`);
+          await load();
+        } finally {
+          button.disabled = false;
+        }
+      }
+      function exportOpml() {
+        const escape = (value) =>
+          String(value || "")
+            .replaceAll("&", "&amp;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("<", "&lt;");
+        const rows = state.feeds
+          .map(
+            (feed) =>
+              `    <outline text="${escape(feed.title)}" title="${escape(feed.title)}" type="rss" xmlUrl="${escape(feed.url)}"/>`,
+          )
+          .join("\n");
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0"><head><title>RSSHub subscriptions</title></head><body>\n${rows}\n</body></opml>`;
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(
+          new Blob([xml], { type: "text/xml;charset=utf-8" }),
+        );
+        link.download = "rsshub-subscriptions.opml";
+        link.click();
+        URL.revokeObjectURL(link.href);
+        toast(`已导出 ${state.feeds.length} 个订阅`);
+      }
+      async function importOpml(file) {
+        if (!file) return;
+        try {
+          const xml = new DOMParser().parseFromString(
+            await file.text(),
+            "application/xml",
+          );
+          if (
+            xml.querySelector("parsererror") ||
+            xml.documentElement.tagName.toLowerCase() !== "opml"
+          )
+            throw new Error("文件不是有效的 OPML");
+          const nodes = [...xml.querySelectorAll("outline[xmlUrl]")];
+          let added = 0,
+            skipped = 0;
+          for (const node of nodes) {
+            try {
+              await api("/api/feeds", "POST", {
+                url: node.getAttribute("xmlUrl"),
+                title:
+                  node.getAttribute("title") || node.getAttribute("text") || "",
+              });
+              added++;
+            } catch {
+              skipped++;
+            }
+          }
+          await load();
+          if (added) await refresh();
+          toast(`OPML 导入完成：新增 ${added} 个，跳过 ${skipped} 个`);
+        } catch (error) {
+          toast(`导入失败：${error.message}`);
+        } finally {
+          $("opmlFile").value = "";
+        }
+      }
+      $("addForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const input = $("feedUrl"),
+          button = $("addButton"),
+          url = input.value.trim();
+        if (!url) return;
+        button.disabled = true;
+        button.textContent = "…";
+        try {
+          const feed = await api("/api/feeds", "POST", { url });
+          input.value = "";
+          await load();
+          await api("/api/refresh", "POST", { feedId: feed.id }).catch(
+            (error) => toast(`已添加订阅，首次拉取失败：${error.message}`),
+          );
+          await load();
+          if (!state.items.length) toast("订阅已添加");
+        } catch (error) {
+          toast(error.message);
+        } finally {
+          button.disabled = false;
+          button.textContent = "添加";
+        }
+      });
+      $("refreshButton").addEventListener("click", refresh);
+      $("markAllButton").addEventListener("click", markVisibleRead);
+      $("exportButton").addEventListener("click", exportOpml);
+      $("importButton").addEventListener("click", () => $("opmlFile").click());
+      $("opmlFile").addEventListener("change", (event) =>
+        importOpml(event.target.files[0]),
+      );
+      $("search").addEventListener("input", renderList);
+      document.querySelectorAll("[data-view]").forEach((button) =>
+        button.addEventListener("click", () => {
+          state.view = button.dataset.view;
+          state.feedId = "";
+          render();
+        }),
+      );
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          document.body.classList.contains("focus-mode")
+        ) {
+          document.body.classList.remove("focus-mode");
+          renderReader();
+        }
+      });
+      window.addEventListener("popstate", () => {
+        if (document.body.classList.contains("focus-mode")) {
+          document.body.classList.remove("focus-mode");
+          renderReader();
+        }
+      });
+      load();
+      setInterval(
+        () => {
+          if (!document.hidden && !state.busy && state.feeds.length) refresh();
+        },
+        15 * 60 * 1000,
+      );
+    </script>
+  </body>
 </html>
