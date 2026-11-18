@@ -1,0 +1,16 @@
+{
+  "name": "rsshub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "refresh": "node server.js refresh"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "lowdb": "^5.0.0",
+    "rss-parser": "^3.12.0"
+  }
+}
