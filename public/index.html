@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f6f5f1" />
-    <title>RSSHub · 阅读器</title>
+    <meta name="theme-color" content="#f7f6f4" />
+    <title>Jasper's RSS · 阅读器</title>
     <style>
       :root {
         font-family:
@@ -893,34 +893,6 @@
           display: none;
         }
       }
-      .curated-section {
-        border-top: 1px solid #eeeee9;
-        padding: 14px 7px 0;
-      }
-      .curated-section summary {
-        cursor: pointer;
-        list-style: none;
-        font-size: 12px;
-        font-weight: 650;
-        color: #47483f;
-      }
-      .curated-section summary::-webkit-details-marker {
-        display: none;
-      }
-      .curated-section summary span {
-        display: block;
-        color: #a09f96;
-        font-size: 10px;
-        font-weight: 400;
-        margin-top: 4px;
-      }
-      .curated-list {
-        display: grid;
-        gap: 6px;
-        margin-top: 11px;
-        max-height: 290px;
-        overflow: auto;
-      }
       .curated-card {
         display: flex;
         align-items: center;
@@ -964,11 +936,6 @@
       .curated-add:disabled {
         opacity: 0.65;
         cursor: default;
-      }
-      @media (max-width: 760px) {
-        .curated-section {
-          display: none;
-        }
       }
       @media (max-width: 760px) {
         html,
@@ -1204,6 +1171,696 @@
           font-size: 10px;
         }
       }
+      .catalog-launch {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #e9e9e2;
+        border-radius: 12px;
+        padding: 11px;
+        background: linear-gradient(120deg, #fbfcf6, #f5f7ed);
+        text-align: left;
+        color: #3e4037;
+        cursor: pointer;
+      }
+      .catalog-launch:hover {
+        border-color: #dce3c4;
+        background: #f3f6e9;
+      }
+      .catalog-launch-icon {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: #d7f06b;
+        color: #37431c;
+        font-size: 17px;
+      }
+      .catalog-launch-copy {
+        display: grid;
+        gap: 3px;
+        min-width: 0;
+        flex: 1;
+      }
+      .catalog-launch-copy strong {
+        font-size: 12px;
+      }
+      .catalog-launch-copy small {
+        color: #929389;
+        font-size: 10px;
+      }
+      .catalog-launch-arrow {
+        color: #8a916e;
+        font-size: 18px;
+      }
+      .catalog-dialog {
+        width: min(1040px, calc(100vw - 32px));
+        max-width: none;
+        max-height: min(900px, calc(100dvh - 32px));
+        padding: 0;
+        border: 1px solid #e8e8e1;
+        border-radius: 20px;
+        color: #282921;
+        background: #f8f8f5;
+        box-shadow: 0 30px 100px #191a1738;
+        overflow: hidden;
+      }
+      .catalog-dialog::backdrop {
+        background: #191a176e;
+        backdrop-filter: blur(5px);
+      }
+      .catalog-shell {
+        display: flex;
+        flex-direction: column;
+        max-height: min(900px, calc(100dvh - 32px));
+      }
+      .catalog-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 25px 28px 19px;
+        background: #fff;
+        border-bottom: 1px solid #edede7;
+      }
+      .catalog-kicker {
+        color: #8a965c;
+        font-size: 9px;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+      }
+      .catalog-heading h2 {
+        margin: 7px 0 5px;
+        font-size: 23px;
+        letter-spacing: -0.04em;
+      }
+      .catalog-heading p {
+        margin: 0;
+        color: #8e8f85;
+        font-size: 12px;
+      }
+      .catalog-close {
+        width: 36px;
+        height: 36px;
+        flex: none;
+        border: 1px solid #ecece6;
+        border-radius: 10px;
+        background: white;
+        color: #74756c;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+      }
+      .catalog-toolbar {
+        padding: 15px 28px 5px;
+        background: #fff;
+      }
+      .catalog-search {
+        width: 100%;
+        height: 42px;
+        border: 1px solid #e6e7df;
+        border-radius: 10px;
+        padding: 0 13px;
+        outline: none;
+        background: #fafaf8;
+        color: #303129;
+        font: inherit;
+        font-size: 13px;
+      }
+      .catalog-search:focus {
+        border-color: #aaba71;
+        box-shadow: 0 0 0 3px #edf2dc;
+      }
+      .catalog-categories {
+        display: flex;
+        gap: 7px;
+        margin-top: 12px;
+        padding-bottom: 9px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .catalog-categories::-webkit-scrollbar {
+        display: none;
+      }
+      .catalog-category {
+        flex: none;
+        border: 1px solid #e9e9e3;
+        border-radius: 99px;
+        padding: 7px 11px;
+        background: #fff;
+        color: #717268;
+        font: inherit;
+        font-size: 11px;
+        cursor: pointer;
+      }
+      .catalog-category.active {
+        border-color: #dce5bd;
+        background: #f0f4e3;
+        color: #455128;
+        font-weight: 650;
+      }
+      .catalog-results-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 28px;
+        color: #96978d;
+        font-size: 11px;
+      }
+      .catalog-text-button {
+        border: 0;
+        background: transparent;
+        color: #737c51;
+        font: inherit;
+        font-size: 11px;
+        cursor: pointer;
+      }
+      .curated-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+        padding: 0 28px 18px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      .curated-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        min-height: 84px;
+        padding: 12px;
+        border: 1px solid #e9e9e3;
+        border-radius: 12px;
+        background: #fff;
+        transition:
+          border-color 0.15s,
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .curated-card:hover {
+        border-color: #dce3c5;
+        box-shadow: 0 5px 16px #35371a0d;
+        transform: translateY(-1px);
+      }
+      .curated-card.subscribed {
+        background: #f8f9f3;
+      }
+      .curated-check {
+        width: 17px;
+        height: 17px;
+        accent-color: #71813d;
+        flex: none;
+      }
+      .curated-copy {
+        min-width: 0;
+        flex: 1;
+      }
+      .curated-name {
+        overflow: hidden;
+        color: #37382f;
+        font-size: 12px;
+        font-weight: 650;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .curated-category {
+        margin-top: 4px;
+        color: #8a916d;
+        font-size: 9px;
+      }
+      .curated-description {
+        display: -webkit-box;
+        margin-top: 5px;
+        overflow: hidden;
+        color: #999990;
+        font-size: 10px;
+        line-height: 1.45;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+      .curated-add {
+        flex: none;
+        min-height: 31px;
+        border: 1px solid #e7e8df;
+        border-radius: 8px;
+        padding: 0 9px;
+        background: #fff;
+        color: #62674e;
+        font: inherit;
+        font-size: 10px;
+        cursor: pointer;
+      }
+      .curated-add:hover {
+        background: #f0f3e5;
+      }
+      .curated-add:disabled {
+        border-color: transparent;
+        background: #edf0e3;
+        color: #788052;
+        cursor: default;
+      }
+      .catalog-empty {
+        grid-column: 1/-1;
+        padding: 50px 20px;
+        color: #96978d;
+        text-align: center;
+        font-size: 13px;
+      }
+      .catalog-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 13px 28px;
+        border-top: 1px solid #e9e9e3;
+        background: #fff;
+        color: #85867b;
+        font-size: 11px;
+      }
+      .catalog-footer > div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .catalog-add-selected {
+        min-height: 38px;
+        border: 0;
+        border-radius: 9px;
+        padding: 0 14px;
+        background: #292a24;
+        color: #fff;
+        font: inherit;
+        font-size: 11px;
+        font-weight: 650;
+        cursor: pointer;
+      }
+      .catalog-add-selected:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      /* A warmer, discovery-first visual system inspired by Folo. */
+      :root {
+        color: #292725;
+        background: #f7f6f4;
+        --accent: #f47c54;
+        --accent-strong: #e96d45;
+        --accent-soft: #fff0e9;
+        --line: #ebe8e5;
+      }
+      body {
+        background: #f7f6f4;
+      }
+      .sidebar,
+      .list-pane,
+      .reader {
+        border-color: var(--line);
+        box-shadow: 0 3px 18px #2f241509;
+      }
+      .brand-mark {
+        background: var(--accent);
+        color: #fff;
+      }
+      .nav-button.active,
+      .feed-button.active {
+        background: var(--accent-soft);
+        color: #783e2b;
+      }
+      .nav-button:hover,
+      .feed-button:hover,
+      .article:hover {
+        background: #fff8f4;
+      }
+      .article.selected {
+        background: #fff2ec;
+      }
+      .article.unread:before,
+      .feed-dot {
+        background: var(--accent);
+      }
+      .source-glyph {
+        background: var(--accent-soft);
+        color: #ba6244;
+      }
+      .button,
+      .catalog-add-selected {
+        background: var(--accent-strong);
+      }
+      .button:hover,
+      .catalog-add-selected:hover:not(:disabled) {
+        background: #d9603b;
+      }
+      .add-row input:focus,
+      .search:focus {
+        border-color: #f2a184;
+        box-shadow: 0 0 0 3px #fff0e9;
+      }
+      .icon-button:hover,
+      .icon-button.active {
+        background: var(--accent-soft);
+        color: #9e4a2f;
+      }
+      .reader-top a {
+        color: var(--accent-strong);
+      }
+      .reader-back {
+        border-color: #f0e1d9;
+        color: #a25034;
+      }
+      .catalog-launch {
+        border-color: #f1e4dd;
+        background: linear-gradient(120deg, #fffaf7, #fff1e9);
+      }
+      .catalog-launch:hover {
+        border-color: #efc7b7;
+        background: #fff1e9;
+      }
+      .catalog-launch-icon {
+        background: var(--accent);
+        color: #fff;
+      }
+      .catalog-launch-arrow,
+      .catalog-text-button {
+        color: var(--accent-strong);
+      }
+      .catalog-dialog {
+        width: min(1180px, calc(100vw - 40px));
+        border-color: #eee7e2;
+        background: #faf9f8;
+      }
+      .catalog-header {
+        padding: 30px 34px 22px;
+        background:
+          radial-gradient(
+            ellipse at 90% 5%,
+            #ffe4d5 0,
+            #fff8f4 22%,
+            transparent 48%
+          ),
+          #fff;
+      }
+      .catalog-kicker {
+        color: var(--accent-strong);
+      }
+      .catalog-heading h2 {
+        font-size: 26px;
+        letter-spacing: -0.045em;
+      }
+      .catalog-heading p {
+        font-size: 13px;
+      }
+      .catalog-toolbar {
+        padding: 16px 34px 3px;
+      }
+      .catalog-search {
+        height: 46px;
+        border-color: #ebe7e4;
+        border-radius: 13px;
+        background: #f8f7f6;
+      }
+      .catalog-search:focus {
+        border-color: #f2a184;
+        box-shadow: 0 0 0 3px #fff0e9;
+      }
+      .catalog-category {
+        border-color: transparent;
+        background: #f5f3f1;
+      }
+      .catalog-category.active {
+        border-color: #f3c4b0;
+        background: var(--accent-soft);
+        color: #a34c30;
+      }
+      .curated-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        padding: 0 34px 20px;
+      }
+      .curated-card {
+        min-height: 96px;
+        padding: 13px;
+        border-color: #ede9e6;
+        border-radius: 15px;
+      }
+      .curated-card:hover {
+        border-color: #f0c2af;
+        box-shadow: 0 8px 22px #9c4d2712;
+      }
+      .curated-card.subscribed {
+        background: #fffaf7;
+      }
+      .curated-mark {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        flex: none;
+        place-items: center;
+        border-radius: 12px;
+        background: hsl(var(--mark-hue) 74% 93%);
+        color: hsl(var(--mark-hue) 48% 42%);
+        font-size: 13px;
+        font-weight: 750;
+        letter-spacing: -0.04em;
+      }
+      .curated-name {
+        color: #302d2b;
+        font-size: 13px;
+      }
+      .curated-category {
+        color: #b66549;
+      }
+      .curated-description {
+        color: #92908d;
+      }
+      .curated-domain {
+        margin-top: 4px;
+        overflow: hidden;
+        color: #aaa6a2;
+        font-size: 9px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .curated-add {
+        border-color: #f0e1d9;
+        color: #a25034;
+      }
+      .curated-add:hover {
+        background: #fff0e9;
+      }
+      .curated-add:disabled {
+        background: #fff0e9;
+        color: #b16d55;
+      }
+      .catalog-footer {
+        padding: 14px 34px;
+      }
+      .mobile-feed-manager-launch {
+        display: none;
+      }
+      .feed-manager {
+        width: min(520px, calc(100vw - 28px));
+        max-width: none;
+        max-height: min(780px, calc(100dvh - 40px));
+        padding: 0;
+        border: 1px solid #eee7e2;
+        border-radius: 20px;
+        color: #292725;
+        background: #faf9f8;
+        box-shadow: 0 24px 80px #2518112b;
+        overflow: hidden;
+      }
+      .feed-manager::backdrop {
+        background: #25181170;
+        backdrop-filter: blur(4px);
+      }
+      .feed-manager-shell {
+        display: flex;
+        flex-direction: column;
+        max-height: min(780px, calc(100dvh - 40px));
+      }
+      .feed-manager-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px;
+        border-bottom: 1px solid #eee9e6;
+        background: #fff;
+      }
+      .feed-manager-header h2 {
+        margin: 0;
+        font-size: 19px;
+        letter-spacing: -0.04em;
+      }
+      .feed-manager-header p {
+        margin: 5px 0 0;
+        color: #96918d;
+        font-size: 12px;
+      }
+      .feed-manager-search-wrap {
+        padding: 13px 16px 8px;
+        background: #fff;
+      }
+      .feed-manager-search {
+        width: 100%;
+        height: 42px;
+        border: 1px solid #ebe7e4;
+        border-radius: 11px;
+        padding: 0 12px;
+        background: #f8f7f6;
+        color: inherit;
+        font: inherit;
+        font-size: 13px;
+        outline: none;
+      }
+      .feed-manager-search:focus {
+        border-color: #f2a184;
+        box-shadow: 0 0 0 3px #fff0e9;
+      }
+      .feed-manager-list {
+        display: grid;
+        gap: 4px;
+        margin: 0;
+        padding: 8px 12px 16px;
+        overflow-y: auto;
+        list-style: none;
+        overscroll-behavior: contain;
+      }
+      .feed-manager-list .feed-button {
+        width: 100%;
+        max-width: none;
+        min-height: 52px;
+        padding: 9px 78px 9px 12px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        font-size: 13px;
+      }
+      .feed-manager-list .feed-button.active {
+        border-color: #f4d0c2;
+      }
+      .feed-manager-list .feed-controls {
+        display: flex;
+        opacity: 1;
+      }
+      .feed-manager-list .feed-refresh,
+      .feed-manager-list .feed-remove {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #fff;
+        opacity: 1;
+      }
+      .feed-manager-empty {
+        padding: 28px 12px;
+        color: #96918d;
+        text-align: center;
+        font-size: 13px;
+      }
+      @media (max-width: 760px) {
+        .catalog-dialog {
+          width: 100vw;
+          height: 100dvh;
+          max-height: 100dvh;
+          margin: 0;
+          border: 0;
+          border-radius: 0;
+        }
+        .catalog-shell {
+          height: 100dvh;
+          max-height: 100dvh;
+        }
+        .catalog-header {
+          padding: 23px 18px 16px;
+        }
+        .catalog-heading h2 {
+          font-size: 20px;
+        }
+        .catalog-toolbar {
+          padding: 12px 16px 2px;
+        }
+        .catalog-categories {
+          margin-right: -16px;
+        }
+        .catalog-results-head {
+          padding: 10px 17px;
+        }
+        .curated-grid {
+          grid-template-columns: 1fr;
+          gap: 7px;
+          padding: 0 14px 14px;
+        }
+        .curated-card {
+          min-height: 82px;
+          padding: 10px;
+        }
+        .catalog-footer {
+          padding: 11px 16px calc(11px + env(safe-area-inset-bottom));
+        }
+        .catalog-heading h2 {
+          font-size: 21px;
+        }
+        .curated-mark {
+          width: 35px;
+          height: 35px;
+        }
+        .sidebar .feed-area {
+          max-height: none;
+          overflow: visible;
+        }
+        .sidebar #feedList {
+          display: none;
+        }
+        .mobile-feed-manager-launch {
+          width: 100%;
+          min-height: 42px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          border: 1px solid #eee8e4;
+          border-radius: 11px;
+          padding: 0 12px;
+          background: #fff;
+          color: #4c4743;
+          text-align: left;
+          font: inherit;
+          font-size: 12px;
+          cursor: pointer;
+        }
+        .mobile-feed-manager-launch strong {
+          font-size: 12px;
+        }
+        .mobile-feed-manager-launch span:nth-child(2) {
+          color: #96918d;
+        }
+        .mobile-feed-manager-launch .manager-chevron {
+          margin-left: auto;
+          color: var(--accent-strong);
+        }
+        .feed-manager {
+          width: 100vw;
+          height: min(86dvh, 760px);
+          max-height: 86dvh;
+          position: fixed;
+          inset: auto 0 0;
+          margin: 0;
+          border: 0;
+          border-radius: 20px 20px 0 0;
+        }
+        .feed-manager-shell {
+          height: min(86dvh, 760px);
+          max-height: 86dvh;
+        }
+        .feed-manager-header {
+          padding: 18px 17px 14px;
+        }
+        .feed-manager-list {
+          flex: 1;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1212,7 +1869,7 @@
         <div class="brand">
           <div class="brand-mark">r</div>
           <div>
-            <h1>RSSHub</h1>
+            <h1>Jasper's RSS</h1>
             <p>你的安静阅读空间</p>
           </div>
         </div>
@@ -1234,12 +1891,24 @@
             </ul>
           </nav>
         </div>
-        <details class="curated-section" open>
-          <summary>精选订阅源 <span>为你挑选的优质内容</span></summary>
-          <div id="curatedList" class="curated-list"></div>
-        </details>
+        <button id="openCatalog" class="catalog-launch" type="button">
+          <span class="catalog-launch-icon">✳</span>
+          <span class="catalog-launch-copy"
+            ><strong>精选订阅源</strong
+            ><small>100 个海内外优质来源</small></span
+          >
+          <span class="catalog-launch-arrow">→</span>
+        </button>
         <section class="feed-area">
           <h2 class="section-label">订阅源</h2>
+          <button
+            id="openFeedManager"
+            class="mobile-feed-manager-launch"
+            type="button"
+          >
+            <strong>订阅源</strong><span id="mobileFeedCount">0 个来源</span
+            ><span class="manager-chevron">管理 →</span>
+          </button>
           <ul id="feedList" class="feed-list"></ul>
         </section>
         <form id="addForm" class="add-box">
@@ -1313,39 +1982,306 @@
       </article>
     </div>
     <div id="toast" class="toast" role="status"></div>
+    <dialog id="catalogDialog" class="catalog-dialog">
+      <div class="catalog-shell">
+        <header class="catalog-header">
+          <div class="catalog-heading">
+            <span class="catalog-kicker">RSSHUB DIRECTORY</span>
+            <h2>发现值得订阅的内容</h2>
+            <p>精选海内外来源，添加到你的阅读空间。</p>
+          </div>
+          <button
+            id="closeCatalog"
+            class="catalog-close"
+            type="button"
+            aria-label="关闭"
+          >
+            ×
+          </button>
+        </header>
+        <div class="catalog-toolbar">
+          <input
+            id="catalogSearch"
+            class="catalog-search"
+            type="search"
+            placeholder="搜索来源、主题或分类…"
+            aria-label="搜索精选源"
+          />
+          <div id="catalogCategories" class="catalog-categories"></div>
+        </div>
+        <div class="catalog-results-head">
+          <span id="catalogCount">100 个精选源</span
+          ><button id="selectVisible" class="catalog-text-button" type="button">
+            选择当前结果
+          </button>
+        </div>
+        <div id="curatedList" class="curated-grid"></div>
+        <footer class="catalog-footer">
+          <span id="selectedCount">已选 0 个</span>
+          <div>
+            <button
+              id="clearSelection"
+              class="catalog-text-button"
+              type="button"
+            >
+              清空</button
+            ><button
+              id="addSelected"
+              class="catalog-add-selected"
+              type="button"
+              disabled
+            >
+              添加已选来源
+            </button>
+          </div>
+        </footer>
+      </div>
+    </dialog>
+    <dialog id="feedManagerDialog" class="feed-manager">
+      <div class="feed-manager-shell">
+        <header class="feed-manager-header">
+          <div>
+            <h2>管理订阅源</h2>
+            <p id="feedManagerCount">0 个来源</p>
+          </div>
+          <button
+            id="closeFeedManager"
+            class="catalog-close"
+            type="button"
+            aria-label="关闭"
+          >
+            ×
+          </button>
+        </header>
+        <div class="feed-manager-search-wrap">
+          <input
+            id="feedManagerSearch"
+            class="feed-manager-search"
+            type="search"
+            placeholder="搜索订阅源…"
+            aria-label="搜索已订阅来源"
+          />
+        </div>
+        <ul id="mobileFeedList" class="feed-manager-list"></ul>
+      </div>
+    </dialog>
     <script>
-      const curatedFeeds = [
-        {
-          title: "少数派",
-          url: "https://sspai.com/feed",
-          category: "中文 · 数码与效率",
-        },
-        {
-          title: "阮一峰的网络日志",
-          url: "https://www.ruanyifeng.com/blog/atom.xml",
-          category: "中文 · 科技与编程",
-        },
-        {
-          title: "爱范儿",
-          url: "https://www.ifanr.com/feed",
-          category: "中文 · 消费科技",
-        },
-        {
-          title: "Hacker News",
-          url: "https://news.ycombinator.com/rss",
-          category: "开发 · 科技社区",
-        },
-        {
-          title: "GitHub Blog",
-          url: "https://github.blog/feed/",
-          category: "开发 · 开源与工程",
-        },
-        {
-          title: "The Verge",
-          url: "https://www.theverge.com/rss/index.xml",
-          category: "国际 · 科技新闻",
-        },
+      const curatedGroups = [
+        [
+          "AI 与前沿科技",
+          "AI 模型、研究与产业动态",
+          [
+            ["OpenAI News", "https://openai.com/news/rss.xml"],
+            ["Google AI", "https://blog.google/technology/ai/rss/"],
+            ["Google DeepMind", "https://deepmind.google/blog/rss.xml"],
+            ["Hugging Face Blog", "https://huggingface.co/blog/feed.xml"],
+            ["MIT Technology Review", "https://www.technologyreview.com/feed/"],
+            ["The Decoder", "https://the-decoder.com/feed/"],
+            ["AI News", "https://artificialintelligence-news.com/feed/"],
+            ["Import AI", "https://importai.substack.com/feed"],
+            ["Simon Willison", "https://simonwillison.net/atom/everything/"],
+            [
+              "Machine Learning Mastery",
+              "https://machinelearningmastery.com/blog/feed/",
+            ],
+          ],
+        ],
+        [
+          "开发与开源",
+          "工程实践、开发工具和开源项目",
+          [
+            ["Hacker News", "https://news.ycombinator.com/rss"],
+            ["GitHub Blog", "https://github.blog/feed/"],
+            ["GitHub Changelog", "https://github.blog/changelog/feed/"],
+            ["Stack Overflow Blog", "https://stackoverflow.blog/feed/"],
+            ["思否 SegmentFault", "https://segmentfault.com/feeds"],
+            ["阮一峰的网络日志", "https://www.ruanyifeng.com/blog/atom.xml"],
+            ["Dan Abramov", "https://overreacted.io/rss.xml"],
+            ["CSS-Tricks", "https://css-tricks.com/feed/"],
+            ["Joel on Software", "https://www.joelonsoftware.com/feed/"],
+            ["Lobsters", "https://lobste.rs/rss"],
+          ],
+        ],
+        [
+          "数码与产品评测",
+          "消费电子、手机电脑和深度体验",
+          [
+            ["少数派", "https://sspai.com/feed"],
+            ["爱范儿", "https://www.ifanr.com/feed"],
+            ["The Verge", "https://www.theverge.com/rss/index.xml"],
+            ["Ars Technica", "https://feeds.arstechnica.com/arstechnica/index"],
+            ["Engadget", "https://www.engadget.com/rss.xml"],
+            ["Wired", "https://www.wired.com/feed/rss"],
+            ["CNET", "https://www.cnet.com/rss/news/"],
+            ["TechRadar", "https://www.techradar.com/feeds.xml"],
+            [
+              "Notebookcheck",
+              "https://www.notebookcheck.net/RSS-Feed.8156.0.html",
+            ],
+            ["Android Authority", "https://www.androidauthority.com/feed/"],
+          ],
+        ],
+        [
+          "创业与新产品",
+          "创业公司、创意产品和商业趋势",
+          [
+            ["Product Hunt", "https://www.producthunt.com/feed"],
+            ["TechCrunch", "https://techcrunch.com/feed/"],
+            ["Crunchbase News", "https://news.crunchbase.com/feed/"],
+            ["Y Combinator", "https://www.ycombinator.com/blog/rss/"],
+            ["First Round Review", "https://review.firstround.com/feed.xml"],
+            ["SaaStr", "https://www.saastr.com/feed/"],
+            ["Indie Hackers", "https://www.indiehackers.com/feed.xml"],
+            ["36氪", "https://36kr.com/feed"],
+            ["虎嗅", "https://www.huxiu.com/rss/0.xml"],
+            ["极客公园", "https://www.geekpark.net/rss"],
+          ],
+        ],
+        [
+          "股票与金融",
+          "市场、商业、个人理财和宏观经济",
+          [
+            [
+              "CNBC Top News",
+              "https://www.cnbc.com/id/100003114/device/rss/rss.html",
+            ],
+            [
+              "CNBC Business",
+              "https://www.cnbc.com/id/10001147/device/rss/rss.html",
+            ],
+            [
+              "MarketWatch",
+              "https://feeds.marketwatch.com/marketwatch/topstories/",
+            ],
+            ["Seeking Alpha", "https://seekingalpha.com/market_currents.xml"],
+            ["Investing.com News", "https://www.investing.com/rss/news.rss"],
+            ["The Motley Fool", "https://www.fool.com/feeds/index.aspx"],
+            ["NPR Business", "https://feeds.npr.org/1006/rss.xml"],
+            [
+              "Bloomberg Economics",
+              "https://feeds.bloomberg.com/economics/news.rss",
+            ],
+            [
+              "Bloomberg Markets",
+              "https://feeds.bloomberg.com/markets/news.rss",
+            ],
+            ["Yahoo Finance", "https://finance.yahoo.com/news/rssindex"],
+            [
+              "Federal Reserve",
+              "https://www.federalreserve.gov/feeds/press_all.xml",
+            ],
+            [
+              "Financial Times Markets",
+              "https://www.ft.com/markets?format=rss",
+            ],
+            ["WSJ Markets", "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"],
+            [
+              "CNBC Investing",
+              "https://www.cnbc.com/id/15839069/device/rss/rss.html",
+            ],
+            ["第一财经", "https://www.yicai.com/rss/"],
+          ],
+        ],
+        [
+          "全球优质新闻",
+          "国际新闻、深度报道与公共议题",
+          [
+            ["BBC World", "https://feeds.bbci.co.uk/news/world/rss.xml"],
+            ["BBC 中文", "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml"],
+            ["NPR News", "https://feeds.npr.org/1001/rss.xml"],
+            ["The Guardian", "https://www.theguardian.com/world/rss"],
+            ["AP News", "https://apnews.com/hub/ap-top-news?output=rss"],
+            ["Al Jazeera", "https://www.aljazeera.com/xml/rss/all.xml"],
+            ["France 24", "https://www.france24.com/en/rss"],
+            ["DW Top Stories", "https://rss.dw.com/rdf/rss-en-top"],
+            ["The Atlantic", "https://www.theatlantic.com/feed/all/"],
+            ["The Conversation", "https://theconversation.com/articles.atom"],
+          ],
+        ],
+        [
+          "中文科技与商业",
+          "中文互联网、科技公司和产业观察",
+          [
+            ["IT之家", "https://www.ithome.com/rss/"],
+            ["钛媒体", "https://www.tmtpost.com/rss.xml"],
+            ["InfoQ 中文", "https://www.infoq.cn/feed"],
+            ["开源中国", "https://www.oschina.net/news/rss"],
+            ["机器之心", "https://www.jiqizhixin.com/rss"],
+          ],
+        ],
+        [
+          "科学与研究",
+          "科学发现、学术论文和太空探索",
+          [
+            ["NASA Breaking News", "https://www.nasa.gov/news-release/feed/"],
+            ["NASA Image of the Day", "https://www.nasa.gov/feeds/iotd-feed/"],
+            [
+              "Nature News",
+              "https://www.nature.com/subjects/scientific-community.rss",
+            ],
+            ["ScienceDaily", "https://www.sciencedaily.com/rss/all.xml"],
+            ["arXiv AI", "https://export.arxiv.org/rss/cs.AI"],
+            ["arXiv ML", "https://export.arxiv.org/rss/cs.LG"],
+            ["Quanta Magazine", "https://www.quantamagazine.org/feed/"],
+            ["Phys.org", "https://phys.org/rss-feed/"],
+            [
+              "ESA News",
+              "https://www.esa.int/rssfeed/Our_Activities/Space_Science",
+            ],
+            ["NOAA News", "https://www.noaa.gov/news.xml"],
+          ],
+        ],
+        [
+          "设计与创意",
+          "设计灵感、文化评论和创作者视角",
+          [
+            ["A List Apart", "https://alistapart.com/main/feed/"],
+            ["Smashing Magazine", "https://www.smashingmagazine.com/feed/"],
+            ["Creative Bloq", "https://www.creativebloq.com/feeds/all"],
+            ["It's Nice That", "https://www.itsnicethat.com/feed"],
+            ["Design Observer", "https://designobserver.com/feed/"],
+            ["The Marginalian", "https://www.themarginalian.org/feed/"],
+            ["Longreads", "https://longreads.com/feed/"],
+            ["Aeon", "https://aeon.co/feed.rss"],
+            ["Open Culture", "https://www.openculture.com/feed"],
+            ["The New Yorker", "https://www.newyorker.com/feed/everything"],
+          ],
+        ],
+        [
+          "安全与隐私",
+          "网络安全、漏洞响应与数字权利",
+          [
+            ["Krebs on Security", "https://krebsonsecurity.com/feed/"],
+            ["The Hacker News", "https://feeds.feedburner.com/TheHackersNews"],
+            ["Schneier on Security", "https://www.schneier.com/feed/atom/"],
+            ["Cloudflare Blog", "https://blog.cloudflare.com/rss/"],
+            [
+              "Google Security Blog",
+              "https://security.googleblog.com/feeds/posts/default",
+            ],
+            [
+              "Microsoft Security Blog",
+              "https://www.microsoft.com/en-us/security/blog/feed/",
+            ],
+            [
+              "CISA Alerts",
+              "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+            ],
+            ["EFF Deeplinks", "https://www.eff.org/rss/updates.xml"],
+            ["BleepingComputer", "https://www.bleepingcomputer.com/feed/"],
+            ["SANS Internet Storm Center", "https://isc.sans.edu/rssfeed.xml"],
+          ],
+        ],
       ];
+      const curatedFeeds = curatedGroups.flatMap(
+        ([category, description, sources]) =>
+          sources.map(([title, url]) => ({
+            title,
+            url,
+            category,
+            description,
+          })),
+      );
       const state = {
         feeds: [],
         items: [],
@@ -1353,6 +2289,9 @@
         feedId: "",
         selected: "",
         busy: false,
+        feedManagerQuery: "",
+        catalogCategory: "全部",
+        selectedCurated: new Set(),
       };
       const $ = (id) => document.getElementById(id);
       async function api(path, method = "GET", body) {
@@ -1458,91 +2397,217 @@
           );
       }
       function renderFeeds() {
-        const root = $("feedList");
-        root.replaceChildren();
+        const roots = [$("feedList"), $("mobileFeedList")];
         const allUnread = state.items.filter((item) => !item.read);
         $("allCount").textContent = state.items.length || "";
         $("unreadCount").textContent = allUnread.length || "";
-        for (const feed of state.feeds) {
-          const li = document.createElement("li"),
-            button = document.createElement("button"),
-            dot = document.createElement("span"),
-            name = document.createElement("span"),
-            count = document.createElement("span"),
-            controls = document.createElement("span"),
-            refreshButton = document.createElement("button"),
-            remove = document.createElement("button");
-          button.type = "button";
-          button.className = `feed-button ${state.feedId === feed.id ? "active" : ""}`;
-          dot.className = "feed-dot";
-          name.className = "feed-name";
-          name.textContent = feed.title || feed.url;
-          count.className = "count";
-          const n = state.items.filter(
-            (item) => item.feedId === feed.id && !item.read,
-          ).length;
-          count.textContent = n || "";
-          controls.className = "feed-controls";
-          refreshButton.type = "button";
-          refreshButton.className = "feed-refresh";
-          refreshButton.textContent = "↻";
-          refreshButton.title = "刷新此订阅";
-          refreshButton.setAttribute(
-            "aria-label",
-            `刷新 ${feed.title || feed.url}`,
-          );
-          refreshButton.addEventListener("click", (event) => {
-            event.stopPropagation();
-            refreshFeed(feed.id, refreshButton);
-          });
-          remove.type = "button";
-          remove.className = "feed-remove";
-          remove.textContent = "×";
-          remove.title = "移除订阅";
-          remove.setAttribute("aria-label", `移除 ${feed.title || feed.url}`);
-          remove.addEventListener("click", (event) => {
-            event.stopPropagation();
-            deleteFeed(feed.id);
-          });
-          controls.append(refreshButton, remove);
-          button.append(dot, name, count, controls);
-          button.addEventListener("click", () => {
-            state.feedId = state.feedId === feed.id ? "" : feed.id;
-            render();
-          });
-          li.append(button);
-          root.append(li);
+        $("mobileFeedCount").textContent = `${state.feeds.length} 个来源`;
+        $("feedManagerCount").textContent =
+          `${state.feeds.length} 个来源 · ${allUnread.length} 篇未读`;
+        for (const root of roots) {
+          root.replaceChildren();
+          const feeds =
+            root.id === "mobileFeedList"
+              ? state.feeds.filter((feed) =>
+                  `${feed.title || ""} ${feed.url}`
+                    .toLocaleLowerCase()
+                    .includes(state.feedManagerQuery),
+                )
+              : state.feeds;
+          if (root.id === "mobileFeedList" && !feeds.length) {
+            const empty = document.createElement("li");
+            empty.className = "feed-manager-empty";
+            empty.textContent = state.feeds.length
+              ? "没有匹配的订阅源"
+              : "还没有订阅源，添加 RSS 地址开始阅读。";
+            root.append(empty);
+          }
+          for (const feed of feeds) {
+            const li = document.createElement("li"),
+              button = document.createElement("button"),
+              dot = document.createElement("span"),
+              name = document.createElement("span"),
+              count = document.createElement("span"),
+              controls = document.createElement("span"),
+              refreshButton = document.createElement("button"),
+              remove = document.createElement("button");
+            button.type = "button";
+            button.className = `feed-button ${state.feedId === feed.id ? "active" : ""}`;
+            dot.className = "feed-dot";
+            name.className = "feed-name";
+            name.textContent = feed.title || feed.url;
+            count.className = "count";
+            const n = state.items.filter(
+              (item) => item.feedId === feed.id && !item.read,
+            ).length;
+            count.textContent = n || "";
+            controls.className = "feed-controls";
+            refreshButton.type = "button";
+            refreshButton.className = "feed-refresh";
+            refreshButton.textContent = "↻";
+            refreshButton.title = "刷新此订阅";
+            refreshButton.setAttribute(
+              "aria-label",
+              `刷新 ${feed.title || feed.url}`,
+            );
+            refreshButton.addEventListener("click", (event) => {
+              event.stopPropagation();
+              refreshFeed(feed.id, refreshButton);
+            });
+            remove.type = "button";
+            remove.className = "feed-remove";
+            remove.textContent = "×";
+            remove.title = "移除订阅";
+            remove.setAttribute("aria-label", `移除 ${feed.title || feed.url}`);
+            remove.addEventListener("click", (event) => {
+              event.stopPropagation();
+              deleteFeed(feed.id);
+            });
+            controls.append(refreshButton, remove);
+            button.append(dot, name, count, controls);
+            button.addEventListener("click", () => {
+              state.feedId = state.feedId === feed.id ? "" : feed.id;
+              if (root.id === "mobileFeedList") $("feedManagerDialog").close();
+              render();
+            });
+            li.append(button);
+            root.append(li);
+          }
         }
         $("feedList").hidden = !state.feeds.length;
       }
-      function renderCurated() {
-        const root = $("curatedList");
+      function normalizedFeedUrl(value) {
+        try {
+          const url = new URL(value);
+          url.hash = "";
+          url.pathname = url.pathname.replace(/\/$/, "");
+          return url.href;
+        } catch {
+          return value;
+        }
+      }
+      function visibleCurated() {
+        const query = $("catalogSearch").value.trim().toLocaleLowerCase();
+        return curatedFeeds.filter((feed) => {
+          const matchesCategory =
+            state.catalogCategory === "全部" ||
+            feed.category === state.catalogCategory;
+          const matchesSearch =
+            !query ||
+            `${feed.title} ${feed.url} ${feed.category} ${feed.description}`
+              .toLocaleLowerCase()
+              .includes(query);
+          return matchesCategory && matchesSearch;
+        });
+      }
+      function renderCatalogCategories() {
+        const root = $("catalogCategories");
         root.replaceChildren();
-        for (const feed of curatedFeeds) {
-          const subscribed = state.feeds.some(
-            (item) =>
-              item.url.replace(/\/$/, "") === feed.url.replace(/\/$/, ""),
-          );
-          const row = document.createElement("div");
-          row.className = "curated-card";
+        const categories = [
+          "全部",
+          ...curatedGroups.map(([category]) => category),
+        ];
+        for (const category of categories) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = `catalog-category ${state.catalogCategory === category ? "active" : ""}`;
+          button.textContent =
+            category === "全部"
+              ? `全部 ${curatedFeeds.length}`
+              : `${category} ${curatedFeeds.filter((feed) => feed.category === category).length}`;
+          button.addEventListener("click", () => {
+            state.catalogCategory = category;
+            renderCurated();
+          });
+          root.append(button);
+        }
+      }
+      function renderCurated() {
+        renderCatalogCategories();
+        const root = $("curatedList");
+        const feeds = visibleCurated();
+        const subscribed = new Set(
+          state.feeds.map((feed) => normalizedFeedUrl(feed.url)),
+        );
+        root.replaceChildren();
+        $("catalogCount").textContent =
+          `${feeds.length} 个来源${state.catalogCategory === "全部" ? "" : ` · ${state.catalogCategory}`}`;
+        for (const feed of feeds) {
+          const isSubscribed = subscribed.has(normalizedFeedUrl(feed.url));
+          if (isSubscribed) state.selectedCurated.delete(feed.url);
+          const row = document.createElement("article");
+          row.className = `curated-card ${isSubscribed ? "subscribed" : ""}`;
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.className = "curated-check";
+          checkbox.checked = state.selectedCurated.has(feed.url);
+          checkbox.disabled = isSubscribed;
+          checkbox.setAttribute("aria-label", `选择 ${feed.title}`);
+          checkbox.addEventListener("change", () => {
+            if (checkbox.checked) state.selectedCurated.add(feed.url);
+            else state.selectedCurated.delete(feed.url);
+            updateCatalogSelection();
+          });
           const copy = document.createElement("div");
           copy.className = "curated-copy";
+          const mark = document.createElement("span");
+          mark.className = "curated-mark";
+          mark.textContent = /^[a-z0-9]/i.test(feed.title)
+            ? feed.title.slice(0, 2).toUpperCase()
+            : feed.title.slice(0, 1);
+          let hue = 0;
+          for (const character of feed.title)
+            hue = (hue * 31 + character.charCodeAt(0)) % 360;
+          mark.style.setProperty("--mark-hue", `${hue}deg`);
           const name = document.createElement("div");
           name.className = "curated-name";
           name.textContent = feed.title;
           const category = document.createElement("div");
           category.className = "curated-category";
           category.textContent = feed.category;
-          copy.append(name, category);
+          const description = document.createElement("div");
+          description.className = "curated-description";
+          description.textContent = feed.description;
+          const domain = document.createElement("div");
+          domain.className = "curated-domain";
+          domain.textContent = new URL(feed.url).hostname;
+          copy.append(name, category, description, domain);
           const button = document.createElement("button");
           button.type = "button";
           button.className = "curated-add";
-          button.textContent = subscribed ? "已添加" : "＋ 添加";
-          button.disabled = subscribed;
+          button.textContent = isSubscribed ? "已订阅" : "＋ 添加";
+          button.disabled = isSubscribed;
           button.addEventListener("click", () => addCurated(feed, button));
-          row.append(copy, button);
+          row.append(checkbox, mark, copy, button);
           root.append(row);
         }
+        if (!feeds.length) {
+          const empty = document.createElement("div");
+          empty.className = "catalog-empty";
+          empty.textContent = "没有找到匹配的来源，试试其他关键词或分类。";
+          root.append(empty);
+        }
+        updateCatalogSelection();
+      }
+      function updateCatalogSelection() {
+        const available = new Set(
+          state.feeds.map((feed) => normalizedFeedUrl(feed.url)),
+        );
+        const selected = [...state.selectedCurated].filter(
+          (url) => !available.has(normalizedFeedUrl(url)),
+        );
+        state.selectedCurated = new Set(selected);
+        $("selectedCount").textContent = `已选 ${selected.length} 个`;
+        $("addSelected").disabled = !selected.length;
+        const visible = visibleCurated().filter(
+          (feed) => !available.has(normalizedFeedUrl(feed.url)),
+        );
+        const allSelected =
+          visible.length > 0 &&
+          visible.every((feed) => state.selectedCurated.has(feed.url));
+        $("selectVisible").textContent = allSelected
+          ? "取消选择当前结果"
+          : "选择当前结果";
       }
       function renderList() {
         const list = visibleItems(),
@@ -1859,6 +2924,101 @@
           button.textContent = "＋ 添加";
         }
       }
+      async function addSelectedCurated() {
+        const button = $("addSelected");
+        const urls = [...state.selectedCurated];
+        if (!urls.length || state.busy) return;
+        state.busy = true;
+        button.disabled = true;
+        button.textContent = "正在添加…";
+        let added = 0;
+        let failed = 0;
+        try {
+          for (const url of urls) {
+            const feed = curatedFeeds.find((entry) => entry.url === url);
+            if (!feed) continue;
+            try {
+              await api("/api/feeds", "POST", {
+                url: feed.url,
+                title: feed.title,
+              });
+              added++;
+            } catch {
+              failed++;
+            }
+            button.textContent = `正在添加 ${added + failed}/${urls.length}…`;
+          }
+          state.selectedCurated.clear();
+          await load();
+          if (added) {
+            toast(
+              `已添加 ${added} 个来源，点击刷新按钮即可读取文章${failed ? `；${failed} 个添加失败` : ""}`,
+            );
+          } else {
+            toast(
+              failed ? `添加失败 ${failed} 个，请稍后重试` : "没有新增来源",
+            );
+          }
+        } catch (error) {
+          toast(`批量添加中断：${error.message}`);
+        } finally {
+          state.busy = false;
+          button.textContent = "添加已选来源";
+          updateCatalogSelection();
+        }
+      }
+      $("openCatalog").addEventListener("click", () => {
+        state.catalogCategory = "全部";
+        $("catalogSearch").value = "";
+        renderCurated();
+        $("catalogDialog").showModal();
+      });
+      $("closeCatalog").addEventListener("click", () =>
+        $("catalogDialog").close(),
+      );
+      $("catalogDialog").addEventListener("click", (event) => {
+        if (event.target === $("catalogDialog")) $("catalogDialog").close();
+      });
+      $("catalogSearch").addEventListener("input", renderCurated);
+      $("selectVisible").addEventListener("click", () => {
+        const existing = new Set(
+          state.feeds.map((feed) => normalizedFeedUrl(feed.url)),
+        );
+        const visible = visibleCurated().filter(
+          (feed) => !existing.has(normalizedFeedUrl(feed.url)),
+        );
+        const allSelected =
+          visible.length &&
+          visible.every((feed) => state.selectedCurated.has(feed.url));
+        for (const feed of visible) {
+          if (allSelected) state.selectedCurated.delete(feed.url);
+          else state.selectedCurated.add(feed.url);
+        }
+        renderCurated();
+      });
+      $("clearSelection").addEventListener("click", () => {
+        state.selectedCurated.clear();
+        $("selectVisible").textContent = "选择当前结果";
+        renderCurated();
+      });
+      $("addSelected").addEventListener("click", addSelectedCurated);
+      $("openFeedManager").addEventListener("click", () => {
+        state.feedManagerQuery = "";
+        $("feedManagerSearch").value = "";
+        renderFeeds();
+        $("feedManagerDialog").showModal();
+      });
+      $("closeFeedManager").addEventListener("click", () =>
+        $("feedManagerDialog").close(),
+      );
+      $("feedManagerSearch").addEventListener("input", (event) => {
+        state.feedManagerQuery = event.target.value.trim().toLocaleLowerCase();
+        renderFeeds();
+      });
+      $("feedManagerDialog").addEventListener("click", (event) => {
+        if (event.target === $("feedManagerDialog"))
+          $("feedManagerDialog").close();
+      });
       async function refresh() {
         if (state.busy) return;
         state.busy = true;
@@ -1927,7 +3087,7 @@
               `    <outline text="${escape(feed.title)}" title="${escape(feed.title)}" type="rss" xmlUrl="${escape(feed.url)}"/>`,
           )
           .join("\n");
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0"><head><title>RSSHub subscriptions</title></head><body>\n${rows}\n</body></opml>`;
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0"><head><title>Jasper's RSS subscriptions</title></head><body>\n${rows}\n</body></opml>`;
         const link = document.createElement("a");
         link.href = URL.createObjectURL(
           new Blob([xml], { type: "text/xml;charset=utf-8" }),
