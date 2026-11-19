@@ -429,6 +429,12 @@ body {
   padding-bottom: 21px;
   border-bottom: 1px solid #eeeee9;
 }
+.podcast-player {
+  display: block;
+  width: 100%;
+  max-width: 680px;
+  margin: 18px 0 22px;
+}
 .reader-actions {
   margin-left: auto;
   display: flex;
@@ -1299,14 +1305,10 @@ body.focus-mode {
 }
 .catalog-categories {
   display: flex;
+  flex-wrap: wrap;
   gap: 7px;
   margin-top: 12px;
-  padding-bottom: 9px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.catalog-categories::-webkit-scrollbar {
-  display: none;
+  padding-bottom: 5px;
 }
 .catalog-category {
   flex: none;
@@ -1992,6 +1994,8 @@ body {
   }
   .catalog-categories {
     margin-right: -16px;
+    flex-wrap: wrap;
+    overflow: visible;
   }
   .catalog-results-head {
     padding: 10px 17px;

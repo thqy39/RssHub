@@ -27,10 +27,16 @@ export function extractThumbnail(item) {
   if (
     item.enclosure &&
     typeof item.enclosure === "object" &&
-    item.enclosure.url
+    item.enclosure.url &&
+    (item.enclosure.type?.startsWith("image/") ||
+      /\.(avif|gif|jpe?g|png|webp)(?:$|\?)/i.test(item.enclosure.url))
   )
     return item.enclosure.url;
-  if (item.enclosure && typeof item.enclosure === "string")
+  if (
+    item.enclosure &&
+    typeof item.enclosure === "string" &&
+    /\.(avif|gif|jpe?g|png|webp)(?:$|\?)/i.test(item.enclosure)
+  )
     return item.enclosure;
   if (item.thumbnail && typeof item.thumbnail === "string")
     return item.thumbnail;
@@ -45,6 +51,28 @@ export function extractThumbnail(item) {
   )
     return item["media:thumbnail"].url;
   return "";
+}
+
+export function extractPodcastAudio(item) {
+  const enclosure = item?.enclosure;
+  const url = typeof enclosure === "string" ? enclosure : enclosure?.url;
+  if (!url) return null;
+
+  const normalizedUrl = normalizeFeedUrl(url);
+  if (!normalizedUrl) return null;
+  const parsedUrl = new URL(normalizedUrl);
+
+  const type = typeof enclosure === "object" ? enclosure.type || "" : "";
+  const isAudio =
+    type.startsWith("audio/") ||
+    /\.(aac|flac|m4a|mp3|oga|ogg|opus|wav)(?:$|\?)/i.test(parsedUrl.pathname);
+  if (!isAudio) return null;
+
+  return {
+    url: parsedUrl.href,
+    type,
+    length: Number(enclosure?.length) || 0,
+  };
 }
 
 export function dedupeItems(items) {

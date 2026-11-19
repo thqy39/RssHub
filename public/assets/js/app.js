@@ -18,7 +18,6 @@ const translations = {
   全部文章: "All articles",
   未读: "Unread",
   精选订阅源: "Discover feeds",
-  "100 个海内外优质来源": "100 quality feeds from around the world",
   订阅源: "Subscriptions",
   "管理 →": "Manage →",
   "添加 RSS / Atom 订阅": "Add an RSS / Atom feed",
@@ -108,6 +107,9 @@ const translations = {
   安全与隐私: "Security & Privacy",
   "网络安全、漏洞响应与数字权利":
     "Cybersecurity, vulnerabilities, and digital rights",
+  英语听力播客: "English Listening Podcasts",
+  "适合练习听力、发音和日常表达的英文播客":
+    "Podcasts for listening practice, pronunciation, and everyday English",
 };
 const reverseTranslations = Object.fromEntries(
   Object.entries(translations).map(([source, translated]) => [translated, source]),
@@ -115,8 +117,9 @@ const reverseTranslations = Object.fromEntries(
 const englishToChinese = {
   ...reverseTranslations,
   "Self-hosted · RSS and Atom ·": "本地保存 · 标准 RSS 与 Atom ·",
-  "Learn about FeedWhirl": "了解 FeedWhirl",
-  "100 curated feeds": "100 个精选源",
+  "Curated feeds": "精选订阅源",
+  "Explore quality feeds across topics": "按主题发现优质订阅源",
+  "Listen to podcast episode": "收听播客节目",
   "0 selected": "已选 0 个",
   "0 feeds": "0 个来源",
 };
@@ -649,6 +652,15 @@ function renderReader() {
       String(content).replace(/<[^>]*>/g, " "),
     );
   body.innerHTML = cleanHtml(content || "订阅源没有提供正文内容。");
+  let player;
+  if (item.audioUrl) {
+    player = document.createElement("audio");
+    player.className = "podcast-player";
+    player.controls = true;
+    player.preload = "none";
+    player.src = item.audioUrl;
+    player.setAttribute("aria-label", t("Listen to podcast episode"));
+  }
   if (!item.fullContent && hasMoreLink) {
     const action = document.createElement("button");
     action.className = "text-button";
@@ -687,7 +699,9 @@ function renderReader() {
     if (!item.fullTextError && !item.fullTextLoading && !item.fullTextAttempted)
       fetchFullText(item);
   }
-  root.append(top, title, meta, body);
+  root.append(top, title, meta);
+  if (player) root.append(player);
+  root.append(body);
 }
 function render() {
   document

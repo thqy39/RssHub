@@ -1,5 +1,35 @@
 export const curatedGroups = [
   [
+    "英语听力播客",
+    "适合练习听力、发音和日常表达的英文播客",
+    [
+      [
+        "BBC 6 Minute English",
+        "https://podcasts.files.bbci.co.uk/p02pc9tn.rss",
+      ],
+      [
+        "BBC The English We Speak",
+        "https://podcasts.files.bbci.co.uk/p02pc9zn.rss",
+      ],
+      [
+        "VOA Learning English Podcast",
+        "https://learningenglish.voanews.com/api/ziiy_l-vomx-tpemgtv",
+      ],
+      [
+        "VOA American Stories",
+        "https://learningenglish.voanews.com/api/zyg__l-vomx-tpetmty",
+      ],
+      [
+        "VOA Everyday Grammar",
+        "https://learningenglish.voanews.com/api/zoroqql-vomx-tpeptpqq",
+      ],
+      [
+        "VOA Words and Their Stories",
+        "https://learningenglish.voanews.com/api/zmypyl-vomx-tpeyry_",
+      ],
+    ],
+  ],
+  [
     "AI 与前沿科技",
     "AI 模型、研究与产业动态",
     [
