@@ -115,7 +115,7 @@ const reverseTranslations = Object.fromEntries(
 const englishToChinese = {
   ...reverseTranslations,
   "Self-hosted · RSS and Atom ·": "本地保存 · 标准 RSS 与 Atom ·",
-  "Learn about Feedwhirl": "了解 Feedwhirl",
+  "Learn about FeedWhirl": "了解 FeedWhirl",
   "100 curated feeds": "100 个精选源",
   "0 selected": "已选 0 个",
   "0 feeds": "0 个来源",
@@ -166,8 +166,8 @@ function applyLanguage() {
   document.documentElement.lang = state.language === "en" ? "en" : "zh-CN";
   document.title =
     state.language === "en"
-      ? "Feedwhirl — Simple Self-Hosted RSS Reader"
-      : "Feedwhirl｜简洁自托管 RSS 阅读器";
+      ? "FeedWhirl — Simple Self-Hosted RSS Reader"
+      : "FeedWhirl｜简洁自托管 RSS 阅读器";
   $("languageToggle").textContent = state.language === "en" ? "中文" : "EN";
   $("languageToggle").setAttribute(
     "aria-label",
@@ -1073,7 +1073,7 @@ function exportOpml() {
         `    <outline text="${escape(feed.title)}" title="${escape(feed.title)}" type="rss" xmlUrl="${escape(feed.url)}"/>`,
     )
     .join("\n");
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0"><head><title>Feedwhirl subscriptions</title></head><body>\n${rows}\n</body></opml>`;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0"><head><title>FeedWhirl subscriptions</title></head><body>\n${rows}\n</body></opml>`;
   const link = document.createElement("a");
   link.href = URL.createObjectURL(
     new Blob([xml], { type: "text/xml;charset=utf-8" }),

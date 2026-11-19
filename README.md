@@ -1,4 +1,4 @@
-# Feedwhirl
+# FeedWhirl
 
 一个轻量的 RSS / Atom 聚合阅读器。订阅和文章缓存在本机，以阅读、筛选和快速更新为核心。
 
