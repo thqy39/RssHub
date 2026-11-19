@@ -123,6 +123,14 @@ app.post("/api/refresh-all", async (req, res) => {
   res.json(results);
 });
 
+app.get("/about/en", (req, res) => {
+  res.sendFile(path.join(publicDirectory, "about-en.html"));
+});
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(publicDirectory, "about.html"));
+});
+
 app.get("/*", (req, res) => {
   res.sendFile(path.join(publicDirectory, "index.html"));
 });

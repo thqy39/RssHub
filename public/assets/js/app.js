@@ -10,7 +10,7 @@ const state = {
   feedManagerQuery: "",
   catalogCategory: "全部",
   selectedCurated: new Set(),
-  language: localStorage.getItem("jaspers-rss-language") === "en" ? "en" : "zh",
+  language: localStorage.getItem("jaspers-rss-language") === "zh" ? "zh" : "en",
 };
 const $ = (id) => document.getElementById(id);
 const translations = {
@@ -109,6 +109,17 @@ const translations = {
   "网络安全、漏洞响应与数字权利":
     "Cybersecurity, vulnerabilities, and digital rights",
 };
+const reverseTranslations = Object.fromEntries(
+  Object.entries(translations).map(([source, translated]) => [translated, source]),
+);
+const englishToChinese = {
+  ...reverseTranslations,
+  "Self-hosted · RSS and Atom ·": "本地保存 · 标准 RSS 与 Atom ·",
+  "Learn about Jasper's RSS": "了解 Jasper's RSS",
+  "100 curated feeds": "100 个精选源",
+  "0 selected": "已选 0 个",
+  "0 feeds": "0 个来源",
+};
 const localizedTextNodes = [];
 const textWalker = document.createTreeWalker(
   document.body,
@@ -133,7 +144,9 @@ document
     }
   });
 function t(text) {
-  return state.language === "en" ? translations[text] || text : text;
+  return state.language === "en"
+    ? translations[text] || text
+    : englishToChinese[text] || text;
 }
 function feedCountText(count) {
   return state.language === "en"
@@ -152,7 +165,9 @@ function applyLanguage() {
     element.setAttribute(attribute, t(original));
   document.documentElement.lang = state.language === "en" ? "en" : "zh-CN";
   document.title =
-    state.language === "en" ? "Jasper's RSS · Reader" : "Jasper's RSS · 阅读器";
+    state.language === "en"
+      ? "Jasper's RSS — Simple Self-Hosted RSS Reader"
+      : "Jasper's RSS｜简洁自托管 RSS 阅读器";
   $("languageToggle").textContent = state.language === "en" ? "中文" : "EN";
   $("languageToggle").setAttribute(
     "aria-label",

@@ -1,10 +1,38 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f7f6f4" />
-    <title>Jasper's RSS · 阅读器</title>
+    <meta
+      name="description"
+      content="Jasper's RSS is a simple self-hosted RSS reader for RSS and Atom feeds. Discover quality sources, import OPML, search articles, and read comfortably on mobile."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://pan.xianlinglu.com/" />
+    <link rel="alternate" hreflang="en" href="https://pan.xianlinglu.com/" />
+    <link rel="alternate" hreflang="zh-CN" href="https://pan.xianlinglu.com/about" />
+    <link rel="alternate" hreflang="x-default" href="https://pan.xianlinglu.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jasper's RSS" />
+    <meta property="og:title" content="Jasper's RSS — Simple Self-Hosted RSS Reader" />
+    <meta
+      property="og:description"
+      content="Bring your RSS and Atom feeds together in a clean, self-hosted reading space."
+    />
+    <meta property="og:url" content="https://pan.xianlinglu.com/" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <title>Jasper's RSS — Simple Self-Hosted RSS Reader</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Jasper's RSS",
+        "alternateName": "Jasper RSS Reader",
+        "url": "https://pan.xianlinglu.com/"
+      }
+    </script>
     <link rel="stylesheet" href="/assets/css/app.css" />
   </head>
   <body>
@@ -14,16 +42,16 @@
           <div class="brand-mark">r</div>
           <div>
             <h1>Jasper's RSS</h1>
-            <p>你的安静阅读空间</p>
+            <p>Your quiet reading space</p>
           </div>
           <button
             id="languageToggle"
             class="language-toggle"
             type="button"
-            aria-label="切换语言"
-            title="切换语言"
+            aria-label="Switch language"
+            title="Switch language"
           >
-            EN
+            中文
           </button>
         </div>
         <div class="sidebar-tools">
@@ -31,13 +59,13 @@
             <ul class="nav-list">
               <li>
                 <button class="nav-button active" data-view="all">
-                  <span class="nav-icon">◫</span>全部文章
+                  <span class="nav-icon">◫</span>All articles
                   <span id="allCount" class="count"></span>
                 </button>
               </li>
               <li>
                 <button class="nav-button" data-view="unread">
-                  <span class="nav-icon">●</span>未读
+                  <span class="nav-icon">●</span>Unread
                   <span id="unreadCount" class="count"></span>
                 </button>
               </li>
@@ -48,8 +76,8 @@
           <button id="openCatalog" class="catalog-launch" type="button">
             <span class="catalog-launch-icon">✳</span>
             <span class="catalog-launch-copy"
-              ><strong>精选订阅源</strong
-              ><small>100 个海内外优质来源</small></span
+              ><strong>Discover feeds</strong
+              ><small>100 quality feeds from around the world</small></span
             >
             <span class="catalog-launch-arrow">→</span>
           </button>
@@ -65,19 +93,19 @@
             id="openAddDialog"
             class="mobile-add-launch"
             type="button"
-            aria-label="添加订阅"
-            title="添加订阅"
+            aria-label="Add a feed"
+            title="Add a feed"
           >
             ＋
           </button>
         </div>
         <section class="feed-area">
-          <h2 class="section-label">订阅源</h2>
+          <h2 class="section-label">Subscriptions</h2>
           <ul id="feedList" class="feed-list"></ul>
         </section>
         <div id="addFormHome"></div>
         <form id="addForm" class="add-box">
-          <label for="feedUrl">添加 RSS / Atom 订阅</label>
+          <label for="feedUrl">Add an RSS / Atom feed</label>
           <div class="add-row">
             <input
               id="feedUrl"
@@ -85,13 +113,13 @@
               inputmode="url"
               placeholder="https://example.com/feed.xml"
               required
-            /><button id="addButton" class="button">添加</button>
+            /><button id="addButton" class="button">Add</button>
           </div>
           <div class="backup-actions">
             <button id="exportButton" type="button" class="text-button">
-              导出 OPML</button
+              Export OPML</button
             ><button id="importButton" type="button" class="text-button">
-              导入 OPML</button
+              Import OPML</button
             ><input
               id="opmlFile"
               type="file"
@@ -100,27 +128,29 @@
             />
           </div>
         </form>
-        <div class="side-foot">本地保存 · 标准 RSS 与 Atom</div>
+        <div class="side-foot">
+          Self-hosted · RSS and Atom · <a href="/about">Learn about Jasper's RSS</a>
+        </div>
       </aside>
       <main class="list-pane">
         <header class="list-head">
           <div class="list-head-top">
             <div>
-              <h2 id="listTitle">全部文章</h2>
-              <div id="listSub" class="list-sub">正在读取订阅…</div>
+              <h2 id="listTitle">All articles</h2>
+              <div id="listSub" class="list-sub">Loading subscriptions…</div>
             </div>
             <div class="head-actions">
               <button
                 id="markAllButton"
                 class="mark-all"
-                title="将当前筛选中的文章全部标为已读"
+                title="Mark all visible articles as read"
               >
-                全部已读</button
+                Mark all read</button
               ><button
                 id="refreshButton"
                 class="icon-button"
-                title="刷新全部订阅"
-                aria-label="刷新全部订阅"
+                title="Refresh all feeds"
+                aria-label="Refresh all feeds"
               >
                 ↻
               </button>
@@ -132,8 +162,8 @@
             id="search"
             class="search"
             type="search"
-            placeholder="搜索文章标题或摘要…"
-            aria-label="搜索文章"
+            placeholder="Search article titles or summaries…"
+            aria-label="Search articles"
           />
         </div>
         <div id="items" class="items" aria-live="polite"></div>
@@ -141,8 +171,8 @@
       <article id="reader" class="reader">
         <div class="reader-empty">
           <div class="empty-icon">⌁</div>
-          <strong>选一篇文章，开始阅读</strong
-          ><span>订阅更新会安静地汇集在这里。</span>
+          <strong>Choose an article to start reading</strong
+          ><span>Your subscriptions will appear here, ready to read.</span>
         </div>
       </article>
     </div>
@@ -152,14 +182,14 @@
         <header class="catalog-header">
           <div class="catalog-heading">
             <span class="catalog-kicker">RSSHUB DIRECTORY</span>
-            <h2>发现值得订阅的内容</h2>
-            <p>精选海内外来源，添加到你的阅读空间。</p>
+            <h2>Find something worth following</h2>
+            <p>Explore quality sources and add them to your reader.</p>
           </div>
           <button
             id="closeCatalog"
             class="catalog-close"
             type="button"
-            aria-label="关闭"
+            aria-label="Close"
           >
             ×
           </button>
@@ -169,34 +199,34 @@
             id="catalogSearch"
             class="catalog-search"
             type="search"
-            placeholder="搜索来源、主题或分类…"
-            aria-label="搜索精选源"
+            placeholder="Search sources, topics, or categories…"
+            aria-label="Search recommended feeds"
           />
           <div id="catalogCategories" class="catalog-categories"></div>
         </div>
         <div class="catalog-results-head">
-          <span id="catalogCount">100 个精选源</span
+          <span id="catalogCount">100 curated feeds</span
           ><button id="selectVisible" class="catalog-text-button" type="button">
-            选择当前结果
+            Select visible
           </button>
         </div>
         <div id="curatedList" class="curated-grid"></div>
         <footer class="catalog-footer">
-          <span id="selectedCount">已选 0 个</span>
+            <span id="selectedCount">0 selected</span>
           <div>
             <button
               id="clearSelection"
               class="catalog-text-button"
               type="button"
             >
-              清空</button
+              Clear</button
             ><button
               id="addSelected"
               class="catalog-add-selected"
               type="button"
               disabled
             >
-              添加已选来源
+              Add selected feeds
             </button>
           </div>
         </footer>
@@ -206,14 +236,14 @@
       <div class="feed-manager-shell">
         <header class="feed-manager-header">
           <div>
-            <h2>管理订阅源</h2>
-            <p id="feedManagerCount">0 个来源</p>
+            <h2>Manage subscriptions</h2>
+            <p id="feedManagerCount">0 feeds</p>
           </div>
           <button
             id="closeFeedManager"
             class="catalog-close"
             type="button"
-            aria-label="关闭"
+            aria-label="Close"
           >
             ×
           </button>
@@ -223,8 +253,8 @@
             id="feedManagerSearch"
             class="feed-manager-search"
             type="search"
-            placeholder="搜索订阅源…"
-            aria-label="搜索已订阅来源"
+            placeholder="Search subscriptions…"
+            aria-label="Search subscribed feeds"
           />
         </div>
         <ul id="mobileFeedList" class="feed-manager-list"></ul>
@@ -232,12 +262,12 @@
     </dialog>
     <dialog id="addFeedDialog" class="add-feed-dialog">
       <header class="add-feed-dialog-header">
-        <h2>添加订阅</h2>
+        <h2>Add a feed</h2>
         <button
           id="closeAddDialog"
           class="catalog-close"
           type="button"
-          aria-label="关闭"
+          aria-label="Close"
         >
           ×
         </button>
