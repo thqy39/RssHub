@@ -33,6 +33,9 @@ http://localhost:4000
 
 ## 开发说明
 
-- `server.js` 为 API 服务和静态页面服务器
-- `public/` 为前端静态页面
-- `data.json` 保存本机订阅与文章缓存；建议定期备份。OPML 只包含订阅清单，不包含文章和阅读状态。
+- `server.js` 是兼容入口，继续支持 `node server.js` 和现有 PM2 启动方式
+- `src/server.js` 启动 HTTP 服务，`src/app.js` 定义 API 和静态文件路由
+- `src/lib/` 放数据库和通用工具，`src/services/` 放订阅刷新、全文读取等业务逻辑
+- `public/index.html` 是页面结构；样式、界面逻辑和精选源数据分别位于 `public/assets/css/` 与 `public/assets/js/`
+- `data.json` 保留在项目根目录，保存本机订阅、文章和阅读状态；它不会随代码结构调整而迁移，建议定期备份。OPML 只包含订阅清单。
+- `docs/legacy/` 保存旧的 RSS 调试样本，不参与运行。
