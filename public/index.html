@@ -1676,6 +1676,12 @@
       .mobile-feed-manager-launch {
         display: none;
       }
+      .mobile-shortcuts {
+        display: contents;
+      }
+      .mobile-add-launch {
+        display: none;
+      }
       .feed-manager {
         width: min(520px, calc(100vw - 28px));
         max-width: none;
@@ -1777,7 +1783,210 @@
         text-align: center;
         font-size: 13px;
       }
+      .add-feed-dialog {
+        width: min(460px, calc(100vw - 28px));
+        max-width: none;
+        padding: 0;
+        border: 1px solid #eee7e2;
+        border-radius: 18px;
+        color: #292725;
+        background: #fff;
+        box-shadow: 0 24px 80px #2518112b;
+      }
+      .add-feed-dialog::backdrop {
+        background: #25181170;
+        backdrop-filter: blur(4px);
+      }
+      .add-feed-dialog-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 18px;
+        border-bottom: 1px solid #eee9e6;
+      }
+      .add-feed-dialog-header h2 {
+        margin: 0;
+        font-size: 17px;
+      }
+      .add-feed-dialog-content {
+        padding: 18px;
+      }
+      .add-feed-dialog .add-box {
+        display: block;
+        padding: 0;
+        border: 0;
+      }
+      .add-feed-dialog .add-box label {
+        display: block;
+        margin-bottom: 9px;
+      }
+      .add-feed-dialog .backup-actions {
+        display: flex;
+        flex-wrap: wrap;
+      }
       @media (max-width: 760px) {
+        .sidebar {
+          gap: 6px;
+          padding: 8px 9px;
+        }
+        .brand {
+          min-height: 32px;
+        }
+        .brand-mark {
+          width: 30px;
+          height: 30px;
+          border-radius: 9px;
+          font-size: 16px;
+        }
+        .brand h1 {
+          font-size: 16px;
+        }
+        .language-toggle {
+          height: 29px;
+          min-width: 40px;
+        }
+        .sidebar-tools {
+          overflow: visible;
+        }
+        .nav-list {
+          gap: 6px;
+        }
+        .nav-button {
+          min-height: 38px;
+          padding: 6px 9px;
+          border-radius: 9px;
+          font-size: 12px;
+        }
+        .mobile-shortcuts {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 42px;
+          gap: 6px;
+        }
+        .mobile-shortcuts .catalog-launch {
+          min-height: 42px;
+          gap: 7px;
+          border-radius: 11px;
+          padding: 5px 8px;
+        }
+        .mobile-shortcuts .catalog-launch-icon {
+          width: 27px;
+          height: 27px;
+          flex: none;
+          border-radius: 8px;
+          font-size: 14px;
+        }
+        .mobile-shortcuts .catalog-launch-copy strong {
+          overflow: hidden;
+          font-size: 11px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .mobile-shortcuts .catalog-launch-copy small,
+        .mobile-shortcuts .catalog-launch-arrow {
+          display: none;
+        }
+        .mobile-shortcuts .mobile-feed-manager-launch {
+          min-height: 42px;
+          gap: 5px;
+          border-radius: 11px;
+          padding: 0 8px;
+          font-size: 11px;
+          white-space: nowrap;
+        }
+        .mobile-shortcuts .mobile-feed-manager-launch strong {
+          min-width: 0;
+          overflow: hidden;
+          font-size: 11px;
+          text-overflow: ellipsis;
+        }
+        .mobile-shortcuts .mobile-feed-manager-launch span:nth-child(2) {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 10px;
+        }
+        .mobile-shortcuts .mobile-feed-manager-launch .manager-chevron {
+          display: none;
+        }
+        .mobile-add-launch {
+          width: 42px;
+          height: 42px;
+          display: grid;
+          place-items: center;
+          border: 1px solid #f0d8ce;
+          border-radius: 11px;
+          background: #fff;
+          color: var(--accent-strong);
+          font: inherit;
+          font-size: 24px;
+          line-height: 1;
+          cursor: pointer;
+        }
+        .mobile-add-launch:hover {
+          background: var(--accent-soft);
+        }
+        .sidebar .feed-area,
+        .sidebar .add-box {
+          display: none;
+        }
+        .list-head {
+          padding: 10px 12px 8px;
+        }
+        .list-head h2 {
+          font-size: 16px;
+        }
+        .list-sub {
+          margin-top: 3px;
+          font-size: 10px;
+        }
+        .head-actions {
+          gap: 4px;
+        }
+        .mark-all {
+          min-height: 34px;
+          padding: 0 8px;
+          font-size: 10px;
+        }
+        .icon-button {
+          width: 34px;
+          height: 34px;
+        }
+        .search-wrap {
+          padding: 7px 10px;
+        }
+        .search {
+          height: 36px;
+          font-size: 12px;
+        }
+        .article {
+          padding: 12px 13px 12px 18px;
+        }
+        .article-source {
+          margin-bottom: 6px;
+        }
+        .article h3 {
+          margin-bottom: 4px;
+          font-size: 14px;
+          line-height: 1.45;
+        }
+        .article p {
+          font-size: 12px;
+          line-height: 1.5;
+        }
+        .add-feed-dialog {
+          width: 100vw;
+          max-height: min(80dvh, 620px);
+          position: fixed;
+          inset: auto 0 0;
+          margin: 0;
+          border: 0;
+          border-radius: 20px 20px 0 0;
+        }
+        .add-feed-dialog-header {
+          padding: 17px 18px;
+        }
+        .add-feed-dialog-content {
+          padding: 16px 18px calc(18px + env(safe-area-inset-bottom));
+        }
         .catalog-dialog {
           width: 100vw;
           height: 100dvh;
@@ -1824,10 +2033,6 @@
           width: 35px;
           height: 35px;
         }
-        .sidebar .feed-area {
-          max-height: none;
-          overflow: visible;
-        }
         .sidebar #feedList {
           display: none;
         }
@@ -1846,16 +2051,6 @@
           font: inherit;
           font-size: 12px;
           cursor: pointer;
-        }
-        .mobile-feed-manager-launch strong {
-          font-size: 12px;
-        }
-        .mobile-feed-manager-launch span:nth-child(2) {
-          color: #96918d;
-        }
-        .mobile-feed-manager-launch .manager-chevron {
-          margin-left: auto;
-          color: var(--accent-strong);
         }
         .feed-manager {
           width: 100vw;
@@ -1917,16 +2112,15 @@
             </ul>
           </nav>
         </div>
-        <button id="openCatalog" class="catalog-launch" type="button">
-          <span class="catalog-launch-icon">✳</span>
-          <span class="catalog-launch-copy"
-            ><strong>精选订阅源</strong
-            ><small>100 个海内外优质来源</small></span
-          >
-          <span class="catalog-launch-arrow">→</span>
-        </button>
-        <section class="feed-area">
-          <h2 class="section-label">订阅源</h2>
+        <div class="mobile-shortcuts">
+          <button id="openCatalog" class="catalog-launch" type="button">
+            <span class="catalog-launch-icon">✳</span>
+            <span class="catalog-launch-copy"
+              ><strong>精选订阅源</strong
+              ><small>100 个海内外优质来源</small></span
+            >
+            <span class="catalog-launch-arrow">→</span>
+          </button>
           <button
             id="openFeedManager"
             class="mobile-feed-manager-launch"
@@ -1935,8 +2129,21 @@
             <strong>订阅源</strong><span id="mobileFeedCount">0 个来源</span
             ><span class="manager-chevron">管理 →</span>
           </button>
+          <button
+            id="openAddDialog"
+            class="mobile-add-launch"
+            type="button"
+            aria-label="添加订阅"
+            title="添加订阅"
+          >
+            ＋
+          </button>
+        </div>
+        <section class="feed-area">
+          <h2 class="section-label">订阅源</h2>
           <ul id="feedList" class="feed-list"></ul>
         </section>
+        <div id="addFormHome"></div>
         <form id="addForm" class="add-box">
           <label for="feedUrl">添加 RSS / Atom 订阅</label>
           <div class="add-row">
@@ -2090,6 +2297,20 @@
         </div>
         <ul id="mobileFeedList" class="feed-manager-list"></ul>
       </div>
+    </dialog>
+    <dialog id="addFeedDialog" class="add-feed-dialog">
+      <header class="add-feed-dialog-header">
+        <h2>添加订阅</h2>
+        <button
+          id="closeAddDialog"
+          class="catalog-close"
+          type="button"
+          aria-label="关闭"
+        >
+          ×
+        </button>
+      </header>
+      <div id="addDialogSlot" class="add-feed-dialog-content"></div>
     </dialog>
     <script>
       const curatedGroups = [
@@ -2331,6 +2552,7 @@
         订阅源: "Subscriptions",
         "管理 →": "Manage →",
         "添加 RSS / Atom 订阅": "Add an RSS / Atom feed",
+        添加订阅: "Add a feed",
         添加: "Add",
         "导出 OPML": "Export OPML",
         "导入 OPML": "Import OPML",
@@ -3306,6 +3528,24 @@
         if (event.target === $("feedManagerDialog"))
           $("feedManagerDialog").close();
       });
+      const mobileViewport = window.matchMedia("(max-width: 760px)");
+      function placeAddForm() {
+        const destination = mobileViewport.matches
+          ? $("addDialogSlot")
+          : $("addFormHome");
+        destination.append($("addForm"));
+      }
+      placeAddForm();
+      mobileViewport.addEventListener("change", placeAddForm);
+      $("openAddDialog").addEventListener("click", () =>
+        $("addFeedDialog").showModal(),
+      );
+      $("closeAddDialog").addEventListener("click", () =>
+        $("addFeedDialog").close(),
+      );
+      $("addFeedDialog").addEventListener("click", (event) => {
+        if (event.target === $("addFeedDialog")) $("addFeedDialog").close();
+      });
       async function refresh() {
         if (state.busy) return;
         state.busy = true;
@@ -3467,6 +3707,7 @@
         try {
           const feed = await api("/api/feeds", "POST", { url });
           input.value = "";
+          if ($("addFeedDialog").open) $("addFeedDialog").close();
           await load();
           await api("/api/refresh", "POST", { feedId: feed.id }).catch(
             (error) =>
