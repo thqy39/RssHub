@@ -32,7 +32,7 @@ export async function fetchArticleContent(url) {
   const response = await fetch(url, {
     signal: AbortSignal.timeout(12000),
     headers: {
-      "User-Agent": "RSSHub/1.0 (reader)",
+      "User-Agent": "Feedwhirl/1.0 (reader)",
       Accept: "text/html,application/xhtml+xml",
     },
     redirect: "follow",
