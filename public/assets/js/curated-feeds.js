@@ -12,20 +12,16 @@ export const curatedGroups = [
         "https://podcasts.files.bbci.co.uk/p02pc9zn.rss",
       ],
       [
-        "VOA Learning English Podcast",
-        "https://learningenglish.voanews.com/podcast/?zoneId=1689",
+        "BBC Learning English from the News",
+        "https://podcasts.files.bbci.co.uk/p05hw4bq.rss",
       ],
       [
-        "VOA American Stories",
-        "https://learningenglish.voanews.com/podcast/?zoneId=1581",
+        "BBC Learning English for China",
+        "https://podcasts.files.bbci.co.uk/p02pc9st.rss",
       ],
       [
-        "VOA Everyday Grammar",
-        "https://learningenglish.voanews.com/podcast/?zoneId=4456",
-      ],
-      [
-        "VOA Words and Their Stories",
-        "https://learningenglish.voanews.com/podcast/?zoneId=987",
+        "的卢声｜英语听力磨耳朵",
+        "https://www.ximalaya.com/album/85800588.xml",
       ],
     ],
   ],
