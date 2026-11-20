@@ -180,6 +180,32 @@ body {
   color: #9b3b2e;
   background: #fff;
 }
+.feed-confirm-popover {
+  position: fixed;
+  z-index: 10000;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px;
+  width: max-content;
+  max-width: min(360px, calc(100vw - 24px));
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #f0e1d9;
+  border-radius: 13px;
+  background: #fff;
+  color: #77746e;
+  font-size: 12px;
+  box-sizing: border-box;
+  box-shadow: 0 12px 34px #25181124;
+  opacity: 0;
+  transform: translateY(4px) scale(.98);
+  transition: opacity .14s ease, transform .14s ease;
+}
+.feed-confirm-popover.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+.feed-confirm-popover span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.feed-confirm-popover button { flex: none; white-space: nowrap; border: 0; padding: 7px 9px; border-radius: 7px; background: transparent; color: #77746e; font: inherit; cursor: pointer; }
+.feed-confirm-popover .feed-inline-confirm-remove { background: #d9603b; color: white; }
 .add-box {
   padding: 14px 10px 0;
   border-top: 1px solid #eeeee9;
@@ -1532,9 +1558,39 @@ body {
   color: var(--accent-strong);
 }
 .reader-back {
+  display: none;
   border-color: #f0e1d9;
   color: #a25034;
 }
+.confirm-dialog {
+  width: min(400px, calc(100vw - 32px));
+  padding: 28px;
+  border: 1px solid #eee7e2;
+  border-radius: 22px;
+  color: #292725;
+  background: #fff;
+  box-shadow: 0 24px 80px #2518112b;
+}
+.confirm-dialog::backdrop {
+  background: #191a176e;
+  backdrop-filter: blur(5px);
+}
+.confirm-dialog-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 14px;
+  background: #fff0e9;
+  color: #d9603b;
+  font-size: 24px;
+}
+.confirm-dialog h2 { margin: 18px 0 8px; font-size: 20px; }
+.confirm-dialog p { margin: 0; color: #85847c; line-height: 1.65; }
+.confirm-dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.confirm-dialog-actions button { min-height: 42px; padding: 0 16px; border-radius: 12px; font: inherit; cursor: pointer; }
+.secondary-button { border: 1px solid #e9e5df; background: #fff; color: #55564d; }
+.danger-button { border: 1px solid #d9603b; background: #d9603b; color: #fff; }
 .catalog-launch {
   border-color: #f1e4dd;
   background: linear-gradient(120deg, #fffaf7, #fff1e9);

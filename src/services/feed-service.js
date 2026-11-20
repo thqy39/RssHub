@@ -44,6 +44,7 @@ export async function refreshFeed(feed) {
         isoDate: item.isoDate || item.pubDate || "",
       };
     });
+    const audioCount = newItems.filter((item) => item.audioUrl).length;
 
     const known = new Set(
       database.data.items.map(
@@ -58,7 +59,7 @@ export async function refreshFeed(feed) {
     database.data.items = dedupeItems([...database.data.items, ...freshItems]);
     if (parsed.title && feed.title === feed.url) feed.title = parsed.title;
 
-    return { success: true, count: freshItems.length };
+    return { success: true, count: freshItems.length, audioCount };
   } catch (error) {
     return { success: false, message: error.message };
   }

@@ -20,8 +20,12 @@ export const curatedGroups = [
         "https://podcasts.files.bbci.co.uk/p02pc9st.rss",
       ],
       [
-        "的卢声｜英语听力磨耳朵",
-        "https://www.ximalaya.com/album/85800588.xml",
+        "学校没教的英语听力",
+        "https://feed.firstory.me/rss/user/clyxtftvm0ks901x4e6kl8bg5",
+      ],
+      [
+        "英文看世界 Open Up English with Claire",
+        "https://feeds.soundon.fm/podcasts/6b63171f-5bdf-4e1c-8d5b-8ac165fa4d78.xml",
       ],
     ],
   ],

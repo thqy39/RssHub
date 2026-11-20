@@ -274,6 +274,15 @@
       </header>
       <div id="addDialogSlot" class="add-feed-dialog-content"></div>
     </dialog>
+    <dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle">
+      <div class="confirm-dialog-icon" aria-hidden="true">×</div>
+      <h2 id="confirmTitle">Remove subscription?</h2>
+      <p id="confirmMessage"></p>
+      <div class="confirm-dialog-actions">
+        <button id="confirmCancel" class="secondary-button" type="button">Cancel</button>
+        <button id="confirmAccept" class="danger-button" type="button">Remove</button>
+      </div>
+    </dialog>
     <script type="module" src="/assets/js/app.js"></script>
   </body>
 </html>

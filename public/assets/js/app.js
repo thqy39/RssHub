@@ -384,7 +384,7 @@ function renderFeeds() {
       remove.setAttribute("aria-label", `移除 ${feed.title || feed.url}`);
       remove.addEventListener("click", (event) => {
         event.stopPropagation();
-        deleteFeed(feed.id);
+        showInlineFeedConfirm(remove, feed);
       });
       controls.append(refreshButton, remove);
       button.append(dot, name, count, controls);
@@ -795,15 +795,32 @@ async function toggleRead(item, read) {
     toast(error.message);
   }
 }
+function showInlineFeedConfirm(anchor, feed) {
+  document.querySelector(".feed-confirm-popover")?.remove();
+  const confirm = document.createElement("div");
+  confirm.className = "feed-confirm-popover";
+  const message = document.createElement("span");
+  message.textContent = state.language === "en" ? `Remove ${feed.title}?` : `移除「${feed.title}」？`;
+  const cancel = document.createElement("button");
+  cancel.type = "button";
+  cancel.textContent = state.language === "en" ? "Cancel" : "取消";
+  cancel.addEventListener("click", () => confirm.remove());
+  const accept = document.createElement("button");
+  accept.type = "button";
+  accept.className = "feed-inline-confirm-remove";
+  accept.textContent = state.language === "en" ? "Remove" : "移除";
+  accept.addEventListener("click", () => { confirm.remove(); deleteFeed(feed.id); });
+  confirm.append(accept, message, cancel);
+  document.body.append(confirm);
+  const rect = anchor.getBoundingClientRect();
+  confirm.style.left = `${Math.max(12, Math.min(rect.left, window.innerWidth - 290))}px`;
+  confirm.style.top = `${Math.min(rect.bottom + 8, window.innerHeight - confirm.offsetHeight - 12)}px`;
+  requestAnimationFrame(() => confirm.classList.add("is-visible"));
+  setTimeout(() => document.addEventListener("pointerdown", (event) => {
+    if (!confirm.contains(event.target) && !anchor.contains(event.target)) confirm.remove();
+  }, { once: true }), 0);
+}
 async function deleteFeed(id) {
-  if (
-    !confirm(
-      state.language === "en"
-        ? "Remove this feed and its cached articles?"
-        : "移除此订阅及其已缓存文章？",
-    )
-  )
-    return;
   try {
     await api(`/api/feeds/${encodeURIComponent(id)}`, "DELETE");
     if (state.feedId === id) state.feedId = "";
@@ -825,11 +842,11 @@ async function refreshFeed(id, button) {
     toast(
       result.count
         ? state.language === "en"
-          ? `Feed updated · ${result.count} new articles`
-          : `订阅已更新，新增 ${result.count} 篇文章`
+          ? `Feed updated · ${result.count} new articles · ${result.audioCount || 0} playable episodes`
+          : `订阅已更新，新增 ${result.count} 篇文章 · ${result.audioCount || 0} 条可播放节目`
         : state.language === "en"
-          ? "Already up to date"
-          : "已是最新，没有新文章",
+          ? `Already up to date · ${result.audioCount || 0} playable episodes`
+          : `已是最新 · ${result.audioCount || 0} 条可播放节目`,
     );
   } catch (error) {
     toast(
@@ -851,6 +868,7 @@ async function addCurated(feed, button) {
       url: feed.url,
       title: feed.title,
     });
+    $("catalogDialog").close();
     await load();
     try {
       const result = await api("/api/refresh", "POST", {
@@ -860,8 +878,8 @@ async function addCurated(feed, button) {
       toast(
         result.count
           ? state.language === "en"
-            ? `Added ${feed.title} · ${result.count} new articles`
-            : "已添加 " + feed.title + "，更新 " + result.count + " 篇文章"
+            ? `Added ${feed.title} · ${result.count} new articles · ${result.audioCount || 0} playable episodes`
+            : "已添加 " + feed.title + "，更新 " + result.count + " 篇文章 · " + (result.audioCount || 0) + " 条可播放节目"
           : state.language === "en"
             ? `Added ${feed.title}`
             : "已添加 " + feed.title,
@@ -909,6 +927,7 @@ async function addSelectedCurated() {
     state.selectedCurated.clear();
     await load();
     if (added) {
+      $("catalogDialog").close();
       toast(
         state.language === "en"
           ? `Added ${added} feeds. Refresh to load articles${failed ? `; ${failed} failed` : ""}`
