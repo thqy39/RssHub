@@ -13,19 +13,19 @@ export const curatedGroups = [
       ],
       [
         "VOA Learning English Podcast",
-        "https://learningenglish.voanews.com/api/ziiy_l-vomx-tpemgtv",
+        "https://learningenglish.voanews.com/podcast/?zoneId=1689",
       ],
       [
         "VOA American Stories",
-        "https://learningenglish.voanews.com/api/zyg__l-vomx-tpetmty",
+        "https://learningenglish.voanews.com/podcast/?zoneId=1581",
       ],
       [
         "VOA Everyday Grammar",
-        "https://learningenglish.voanews.com/api/zoroqql-vomx-tpeptpqq",
+        "https://learningenglish.voanews.com/podcast/?zoneId=4456",
       ],
       [
         "VOA Words and Their Stories",
-        "https://learningenglish.voanews.com/api/zmypyl-vomx-tpeyry_",
+        "https://learningenglish.voanews.com/podcast/?zoneId=987",
       ],
     ],
   ],
